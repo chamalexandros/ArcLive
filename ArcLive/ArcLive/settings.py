@@ -85,12 +85,23 @@ WSGI_APPLICATION = 'ArcLive.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import pymysql
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mysql_arclive',
         'USER': 'Arisa.Yamamoto',
         'PASSWORD': 'arisa1213',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'read_default_file': '/path/to/my.cnf', # 必要であれば
+        },
+        # 以下の行を追加または変更
+        'OPTIONS': {'driver': 'pymysql.connections.Connection'}, # PyMySQLを使用する場合
+        
     }
 }
 
