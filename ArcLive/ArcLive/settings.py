@@ -99,7 +99,7 @@ import pymysql
 connection = pymysql.connect(
     host='localhost',
     user='Arisa.Y',
-    password='project1122',
+    password= os.getenv('DB_PASSWORD'), #パスワードを隠すためのコード(.env内にはあるので読み取りは可能)
     database='mysql_arclive'
 )
 
