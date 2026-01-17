@@ -1,3 +1,10 @@
+#MySQLと通信するために必要なつなぎ役のpymysqlをプログラム内で使えるようにする
+#MySQLdb()の代わりにPyMySQLが動くように設定
+#バージョン確認の門前払いを防ぐために3行目は追加
+
+import pymysql
+pymysql.install_as_MySQLdb()
+pymysql.version_info=(2,2,1,"final",0)
 """
 Django settings for ArcLive project.
 
@@ -85,14 +92,27 @@ WSGI_APPLICATION = 'ArcLive.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# 必要なライブラリをインポート
 import pymysql
+
+# MySQLに接続
+connection = pymysql.connect(
+    host='localhost',
+    user='Arisa.Y',
+    password='project1122',
+    database='mysql_arclive'
+)
+
+# 接続を閉じる
+connection.close()
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mysql_arclive',
-        'USER': 'Arisa.Yamamoto',
-        'PASSWORD': 'project1111',
+        'USER': 'Arisa.Y',
+        'PASSWORD': 'project1122',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
