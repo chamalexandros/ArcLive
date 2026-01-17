@@ -88,7 +88,9 @@ WSGI_APPLICATION = 'ArcLive.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'db.mysql',
+        'NAME': 'mysql_arclive',
+        'USER': 'Arisa.Yamamoto',
+        'PASSWORD': 'arisa1213',
     }
 }
 
