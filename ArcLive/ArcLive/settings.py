@@ -92,15 +92,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mysql_arclive',
         'USER': 'Arisa.Yamamoto',
-        'PASSWORD': 'arisa1213',
+        'PASSWORD': 'project1111',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'read_default_file': '/path/to/my.cnf', # 必要であれば
-        },
-        # 以下の行を追加または変更
-        'OPTIONS': {'driver': 'pymysql.connections.Connection'}, # PyMySQLを使用する場合
+            'charset': 'utf8mb4',
+        }
         
     }
 }
