@@ -3,5 +3,10 @@
 
 <p>{{ datetime_now }}</p>
 <br>
-<a href="{% url '' % }">○○○○○</a>
+<a href="{% url '' % }">リンク先のページに飛ぶ</a>
+<br>
+<a href="{% url 'accounts:logout' % }" method="post">
+    {% csrf_token %}
+    <buttun type="submit">ログアウト</buttun>
+</form>
 {% endblock%}
