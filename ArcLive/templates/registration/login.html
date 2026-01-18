@@ -1,11 +1,10 @@
 {% extends "base/arclive_base.html" %}
 {% block body %}
 
-<h2>ログイン<h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p}}
-    <buttun type="submit">ログイン</buttun>
+    <button type="submit">ログイン</button>
 </form>
 
 {% endblock %}
