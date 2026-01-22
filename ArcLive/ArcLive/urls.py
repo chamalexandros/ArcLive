@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+#プロジェクト全体のルーティング
+#path以降は含めたいアプリケーションのルーティングを記載
+#例：records/に対してrecords.urlsを紐づけているので、records/を加えるとそのページにアクセス可能になる
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
