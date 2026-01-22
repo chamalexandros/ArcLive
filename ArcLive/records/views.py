@@ -3,7 +3,7 @@ from django.views import View
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'record/index.html')
+        return render(request, 'records/index.html')
 
 index =IndexView.as_view()
 
