@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>ArcLive&#127928;</title>
+    </head>
+    <!-- 以下が画面に表示される-->
+    <body>
+        <header>ArcLive&#127928;</header>
+        <main>
+            <h5>これまでの参戦</h5>
+            <h5>今年参戦</h5>
+            <h5>参戦予定</h5>
+            <input name="start-date" type="date"/ min=”1950-01-01″ max=”2050-12-31″><h6>~</h6><input name="end-date" type="date"/ min=”1950-01-01″ max=”2050-12-31″>
+        </main>
+        <footer></footer>
+    </body>
+</html>
