@@ -1,0 +1,40 @@
+/* CSSは　どの要素｛　何を：　どうする；　｝で書く/*
+html {
+    font-size: 62.5%
+}
+body {
+    background-color: #85d7fdf6
+    text-aline: center;
+}
+
+header {
+    color: #4b4b4b
+    font-family: "cursive";
+    font-weight: bold;
+    text-aline: left;
+}
+
+footer {
+    background-color: #ffffff
+
+}
+
+footer input[type="radio"] {
+    display: none;
+}
+footer input[type="radio"] + label img {
+    opacity: 0.5;
+}
+footer input[type="radio"]:checked + label img {
+    opacity: 1;
+}
+
+.flexbox {
+    display: flex
+    justify-content: space_around;
+}
+
+.flex-item {
+    background: #ffffff
+    width:50%
+}
