@@ -17,7 +17,29 @@
             <div style="padding: 1px; width:70px; margin-bottom: 10px; border: 1px solid #686666;">
             <h5>参戦予定</h5>
             </div>
-            <input name="start-date" type="date"/ min=”1950-01-01″ max=”2050-12-31″><h6>~</h6><input name="end-date" type="date"/ min=”1950-01-01″ max=”2050-12-31″>
+            <div id="date1"class="date"></div>
+            <input name="start-date" type="date"/><h6>~</h6><input name="end-date" type="date"/>
+            <p><select name="font" size=>
+                <option value="ヒラギノ角ゴシック">ヒラギノ角ゴシック</option>
+                <option value="Noto Sans">Noto Sans</option>
+                <option value="Noto Serif">Noto Serif</option>
+                <option value="M Plus 1p">M Plus 1p</option>
+                <option value="Oswald">Oswald</option>
+                <option value="Roboto">Roboto</option>
+            </select></p>
+
+            <p><select name="color" size=1>
+                <option value="#000000">黒</option>
+                <option value="#c0c0c0">グレー</option>
+                <option value="#ffffff">白</option>
+                <option value="#ff0000">赤</option>
+                <option value="#ff00ff">ピンク</option>
+                <option value="#ffff00">黄</option>
+                <option value="#00ff00">緑</option>
+                <option value="#0000ff">青</option>
+            </select></p>
+            
+            <p><button class="button js-modal-button" name="background-image">背景画像を選択</button></p>
         </main>
         <footer></footer>
     </body>
