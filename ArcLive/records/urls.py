@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'records'
 urlpatterns = [
-        path("", views.index, name='index'), #1つ目のURLを通ったらviews.indexを動かすようにする。このURLの名前はindexという意味
+        path("", views.home, name='home'), #1つ目のURLを通ったらviews.homeを動かすようにする。このURLの名前はhomeという意味
         
     ]
     
