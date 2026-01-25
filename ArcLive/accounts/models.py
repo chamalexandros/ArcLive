@@ -7,7 +7,7 @@ class Preset_Image(models.Model):
 
 
 class User_Image(models.Model):
-    user_id = 
+    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
     user_image_url = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
