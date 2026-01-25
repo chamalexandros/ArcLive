@@ -32,8 +32,8 @@ class Venue(models.Model):
 
 
 class Design_Setting(models.Model):
-    preset_image_id = models.ForeignKey('accounts.Preset_Image',on_delete=models.CASCADE)
-    user_image_id = models.ForeignKey('accounts.User_Image',on_delete=models.CASCADE)
+    preset_image_id = models.ForeignKey('accounts.Preset_Image',on_delete=models.CASCADE) #アプリ内画像
+    user_image_id = models.ForeignKey('accounts.User_Image',on_delete=models.CASCADE) #ユーザー本体の画像
     record_id = models.ForeignKey('Record', on_delete=models.CASCADE)
     font_type = models.CharField(max_length=100)
     font_color = models.CharField(max_length=100)
