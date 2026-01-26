@@ -163,3 +163,5 @@ STATIC_URL = 'static/'
 
 LOGIN_REDIRECT_URL = "" #ログイン後に表示するページを指定 例："/diary/"
 LOGOUT_REDIRECT_URL = "/login/"
+
+AUTH_USER_MODEL = 'accounts.User'
