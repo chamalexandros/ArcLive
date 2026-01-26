@@ -46,8 +46,8 @@ class User(AbstractUser):
         return f"{self.id}|{self.email}|{self.last_login_at}"
     
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
     objects = UserManager()
-
 
 
 class Preset_Image(models.Model):
