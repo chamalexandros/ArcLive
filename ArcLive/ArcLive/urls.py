@@ -21,7 +21,7 @@ from django.urls import path, include
 #path以降は含めたいアプリケーションのルーティングを記載
 #例：records/に対してrecords.urlsを紐づけているので、records/を加えるとそのページにアクセス可能になる
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),  # 127.0.0.1:8000/admin/
     path('accounts/', include('accounts.urls')),
     path('', include('django.contrib.auth.urls')),
     path('records/', include('records.urls')),
