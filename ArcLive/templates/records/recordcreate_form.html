@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang='ja'>
-    <head>
-        <meta charset="utf-8">
-        <title>ArcLive&#127928;</title>
-    </head>
-    <body>
-        <header>ArcLive&#127928;</header>
-        <div style="padding: 1px; width:70px; margin-bottom: 10px; border: 1px solid #686666;">
-        <h5>参戦記録の新規登録</h5>
+{% extends "base/base.html" %}
+{% block main %}
+
+<h5>参戦記録の新規登録</h5>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
@@ -15,5 +9,5 @@
             <button type="submit">登録</button>
             <button type="reset">キャンセル</button>
         </form>
-    </body>
-</html>
+
+{% endblock %}
