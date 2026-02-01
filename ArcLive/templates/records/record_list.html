@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% block main %}
+<h4>参戦記録一覧<h4>
+<form method="GET" action="{% url 'records:record_list'}">
+    <input type="date" name="start_date" value="{{request.GET.start_date }}">
+    <h6>~<h6>
+    <input type="date" name="end_date" value="{{request.GET.end_date}}">
+
+    <button type="submit">検索</button>
+</form>
+
+{% if searched %}
+
+    <p>({{ record_list.count }}件)</p>
+
+    {% for record in record_list %}
+        <li>
+            {{record.live_date}}: 
+            {{record.event_name}}: 
+            {{record.artist_id.name}}: 
+            {{record.venue_id.name}}
+        </li>
+    {% empty %}
+        <div>参戦記録が1つもありません</div>
+{% endfor %}
+
+
+<h4>アーティスト別参戦本数<h4>
+<ul>
+    {% for item in ranking %}
+        <li>
+            {{ row.artist_id__name }} : {{ row.total}}本
+        </li>
+    {% empty %}
+        <div>参戦記録が1つもありません</div>
+    {% endfor %}
+</ul>
+
+{% endblock %}
