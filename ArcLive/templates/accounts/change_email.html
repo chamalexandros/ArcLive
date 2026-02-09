@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% block main %}
+<div style="text-align: center";>
+    <h4>メールアドレス変更<h4>
+    <form method="post">
+        {% csrf_token %}
+        <p>現在のメールアドレス: {{user.email }}</p>
+        <label>新しいメールアドレス</label>
+        <br>
+        <input type="email" name="new_email" value="{{ user.email }}"required>
+        <br>
+        <br>
+        <button type="submit">変更</button>
+    </form>
+
+</div>
+{% endblock %}
