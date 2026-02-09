@@ -1,0 +1,14 @@
+{% extends base/base.html %}
+{% block main %}
+
+<h5>参戦記録の編集</h5>
+        <form method="POST" enctype="multipart/form-date">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><button class="button js-modal-button" name="newrecord-image">画像を選択する</button></p>
+            <button type="submit">編集</button>
+            <button type="reset">削除する</button>
+        </form>
+
+
+{% endblock %}
