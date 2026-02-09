@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% block main %}
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">削除する</button>
+</form>
+<h5>{{ record.live_date }}<h5>
+<div>{{ record.artist_id.name }}</div>
+<div>{{ record.event_name }}</div>
+<div>{{ record.venue_id.name }}</div>
+{% if record.live_image %}
+<img src="{{ record.live_image.url }}"/>
+{% endif %}
+<br>
+{% endblock %}
