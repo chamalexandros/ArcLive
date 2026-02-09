@@ -21,14 +21,7 @@
                         <img src="C:\Users\sampl\Pictures\home.png">
                     </a>
                 </label>
-                
-                <input id="image_search" type="radio" value="image_search.png" name="image">
-                <label for="image_search">
-                    <a href="{% url 'records:recordcreate'%}">
-                        <img src="C:\Users\sampl\Pictures\search.png">
-                    </a>
-                </label>
-
+        
                 <input id="image_plus" type="radio" value="image_plus.png" name="image">
                 <label for="image_plus">
                     <a href="{% url 'records:recordcreate' %}">
@@ -38,35 +31,19 @@
                 
                 <input id="image_document" type="radio" value="image_document.png" name="image">
                 <label for="image_document">
-                    <a href="{% url 'records:recordcreate'%}">
+                    <a href="{% url 'records:recordlist'%}">
                         <img src="C:\Users\sampl\Pictures\document.png">
                     </a>
                 </label>
                 
                 <input id="image_account" type="radio" value="image_account.png" name="image">
                 <label for="image_account">
-                    <a href="{% url 'records:recordcreate'%}">
+                    <a href="{% url 'accounts:mypage'%}">
                         <img src="C:\Users\sampl\Pictures\account.png">
                     </a>
                 </label>
             </div>
-            <div class="flexbox">
-                <div class="flex-item">
-                    <img src="C:\Users\sampl\Pictures\home.png">
-                </div>
-                <div class="flex-item">
-                    <img src="C:\Users\sampl\Pictures\search.png">
-                </div>
-                <div class="flex-item">
-                    <img src="C:\Users\sampl\Pictures\plus.png">
-                </div>
-                <div class="flex-item">
-                    <img src="C:\Users\sampl\Pictures\document.png">
-                </div>
-                <div class="flex-item">
-                    <img src="C:\Users\sampl\Pictures\account.png">
-                </div>
-            </div>
+           
     </footer>
     </body>
 </html>
