@@ -1,0 +1,14 @@
+{% extends "base/arclive_base.html" %}
+{% block body %}
+<h4>新規アカウント登録<h4>
+
+<form method="post" style="display: inline-block; text-align: left; background: rgba(255, 255, 255, 0.1); padding 30px; border-radius: 10px">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">登録</button>
+</form>
+<p style="margin_top: 20px;">
+    <a href="{% url 'login' %}" style="color:#add8e6; text-decoration: none;">ログイン画面に戻る</a>
+</p>
+
+{% endblock %}
