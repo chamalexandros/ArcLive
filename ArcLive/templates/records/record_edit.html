@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% block main %}
+
+<h5>{{ record.live_date }}<h5>
+<div>{{ record.artist_id.name }}</div>
+<div>{{ record.event_name }}</div>
+<div>{{ record.venue_id.name }}</div>
+{% if record.live_image %}
+<img src="{{ record.live_image.url }}"/>
+{% endif %}
+<br>
+<a href="{% url 'records:record_update' record.id %}">編集</a>
+<a href="{% url 'records:record_delete' record.id %}">削除する</a>
+
+{% endblock %}
