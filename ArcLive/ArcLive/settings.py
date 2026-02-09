@@ -51,6 +51,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'records.apps.RecordsConfig',
-    'accounts.apps.AccountsConfig'
+    'betterforms'
 ]
 
 MIDDLEWARE = [
@@ -161,7 +162,23 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = "" #ログイン後に表示するページを指定 例："/diary/"
+LOGIN_REDIRECT_URL = "records:home" #ログイン後に表示するページを指定 例："/diary/"
 LOGOUT_REDIRECT_URL = "/login/"
 
 AUTH_USER_MODEL = 'accounts.User'
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+MEDIA_URL = "/media/"
+
+
+    # 本番環境ではSMTPサーバーを使ってメール送信
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "chamalexandros@gmail.com"
+EMAIL_HOST_PASSWORD = "nvme jlzu afab xmql"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "ArcLive<chamalexandros@gmail.com>"
+    
+    
