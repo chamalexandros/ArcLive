@@ -1,22 +1,38 @@
 from django.db import models
+from pathlib import Path
+import uuid
+from django.urls import reverse
 
 class Record(models.Model):
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, verbose_name="ID")
     user_id = models.ForeignKey('accounts.User',on_delete=models.CASCADE,verbose_name='ユーザーID')
     venue_id = models.OneToOneField('Venue',on_delete=models.CASCADE,verbose_name='会場ID',blank=True, null=True,)
     event_name = models.CharField(max_length=100, blank=True, null=True,verbose_name='イベント名')
     live_date = models.DateField(verbose_name='公演日')
-    live_image = models.TextField(blank=True, null=True,verbose_name='参戦記録一覧画面に表示する画像')
+    live_image = models.ImageField(upload_to="record/live_image/", blank=True, null=True, verbose_name='参戦記録一覧画面に表示する画像')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
-    def __str__(self):
-        return f"{self.live_date}|{self.event_name}"
+    class Meta:
+        db_table = 'record'
+        def __str__(self):
+            return f"{self.live_date}|{self.event_name}"
+        
+        #def delete(self,*args, **kwargs):
+            live_image =self.live_image
+            super().delete(*args, **kwargs)
+            if live_image:
+                Path(live_image.path).unlink(missing_ok=True)
 
 
 
 class Artist_Record(models.Model):
-    record_id = models.ForeignKey('Record', on_delete=models.CASCADE,verbose_name='参戦記録ID')
-    artist_id = models.ForeignKey('Artist', on_delete=models.CASCADE,verbose_name='アーティストID')
+    record_id = models.ForeignKey('Record', on_delete=models.CASCADE,verbose_name='参戦記録ID', 
+                                  related_name='artist_records')
+    artist_id = models.ForeignKey('Artist', on_delete=models.CASCADE,verbose_name='アーティストID',
+                                  related_name='record_links')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
