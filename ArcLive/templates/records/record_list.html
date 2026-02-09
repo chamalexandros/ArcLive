@@ -1,39 +1,44 @@
-{% extends "base/base.html" %}
+{% extends "base/base.html" %} 
 {% block main %}
 <h4>参戦記録一覧<h4>
-<form method="GET" action="{% url 'records:record_list'}">
-    <input type="date" name="start_date" value="{{request.GET.start_date }}">
-    <h6>~<h6>
-    <input type="date" name="end_date" value="{{request.GET.end_date}}">
-
-    <button type="submit">検索</button>
+<form method="GET" action="{% url 'records:recordlist' %}" class="search-form-2">
+    <label>
+        <input type="date" name="start_date" value="{{request.GET.start_date }}">
+        <h6>~<h6>
+        <input type="date" name="end_date" value="{{request.GET.end_date}}">
+    </label>
+    <button type="submit" aria-label="検索">検索</button>
 </form>
 
 {% if searched %}
 
     <p>({{ record_list.count }}件)</p>
-
+<ul>
     {% for record in record_list %}
         <li>
-            {{record.live_date}}: 
-            {{record.event_name}}: 
-            {{record.artist_id.name}}: 
-            {{record.venue_id.name}}
-        </li>
-    {% empty %}
-        <div>参戦記録が1つもありません</div>
-{% endfor %}
-
-
-<h4>アーティスト別参戦本数<h4>
-<ul>
-    {% for item in ranking %}
-        <li>
-            {{ row.artist_id__name }} : {{ row.total}}本
+            <a href="{% url 'records:record_edit' record.id %}">
+                {{record.live_date}}: 
+                {% for ar in record.artist_records.all %}
+                    {{record.artist_id.name}}{% if not forloop.last %},{% endif %}:
+                {% endfor %}
+                {{record.event_name}}: 
+                {{record.venue_id.name}}</a>
         </li>
     {% empty %}
         <div>参戦記録が1つもありません</div>
     {% endfor %}
 </ul>
+
+<h4>アーティスト別参戦本数<h4>
+<ul>
+    {% for item in artist_summary %}
+        <li>
+            {{ item.artist_records__artist_id__name }} : {{ item.post_count }}本
+        </li>
+    {% empty %}
+        <div>参戦記録が1つもありません</div>
+    {% endfor %}
+</ul>
+{% endif %}
 
 {% endblock %}
