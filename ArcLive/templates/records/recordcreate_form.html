@@ -1,12 +1,17 @@
 {% extends "base/base.html" %}
 {% block main %}
 
-<h5>参戦記録の新規登録</h5>
-        <form method="POST">
+<h4>参戦記録の新規登録</h4>
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <p><button class="button js-modal-button" name="newrecord-image">画像を選択する</button></p>
-            <button type="submit">登録</button>
+            <p><h5>公演日</h5><input type="date" name="live_date" value="{{request.GET.live_date }}"></p>
+            <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
+            <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
+            <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
+            <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
+            <br>
+            <p><button type="submit">登録</button><p>
+            <br>
             <button type="reset">キャンセル</button>
         </form>
 
