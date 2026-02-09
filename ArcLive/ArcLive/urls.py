@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 
 #プロジェクト全体のルーティング
 #path以降は含めたいアプリケーションのルーティングを記載
 #例：records/に対してrecords.urlsを紐づけているので、records/を加えるとそのページにアクセス可能になる
 urlpatterns = [
-    path('admin/', admin.site.urls),  # 127.0.0.1:8000/admin/
     path('accounts/', include('accounts.urls')),
+    path('admin/', admin.site.urls),  # 127.0.0.1:8000/admin/
     path('', include('django.contrib.auth.urls')),
     path('records/', include('records.urls')),
-]
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
