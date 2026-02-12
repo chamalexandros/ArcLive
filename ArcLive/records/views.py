@@ -24,10 +24,30 @@ class RecordCreateView(LoginRequiredMixin, View):
     def post(self, request):
         form = RecordMultiForm(request.POST, request.FILES)
         if form.is_valid():
-            record = form.save(commit=False)
+            objects = form.save(commit=False)
+            record = objects['record_form']
+            artist = objects['artist_form']
+            venue = objects['venue_form']
+            
+            #Artistの重複を防ぐ
+            artist, created = Artist.objects.get_or_create(name=artist.name)
+            artist.save()
+            
+            venue, created = Venue.objects.get_or_create(name=venue.name)
+            
+            venue.save()
+            
             record.user_id = request.user
-            form.save()
+            record.save()
+            
+            Artist_Record.objects.get_or_create(
+                record_id=record,
+                artist_id=artist
+            )
+            
+            form.save_m2m()
             return redirect("records:home")
+        print(f"バリデーションエラーが発生した{form.errors}")
         return render(request, "records/recordcreate_form.html", {"form": form})
 
 
