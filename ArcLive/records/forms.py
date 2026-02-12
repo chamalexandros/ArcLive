@@ -12,6 +12,7 @@ class RecordForm(ModelForm):
     class Meta:
         model = Record
         fields = ["live_date", "event_name", "live_image"]
+        widgets = {'live_date':forms.DateInput(attrs={'type': 'date'})}
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,7 +46,7 @@ class RecordMultiForm(MultiModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #self.field_names(["record_form/live_date", "artist_form/name","record_form/event_name","venue_form/name","record_form/live_image"])
-
+        self.forms['record_form'].fields['live_date'].widget=forms.DateInput(attrs={'type': 'date'})
 
 
 
