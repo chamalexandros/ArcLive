@@ -181,4 +181,5 @@ EMAIL_HOST_PASSWORD = "nvme jlzu afab xmql"
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "ArcLive<chamalexandros@gmail.com>"
     
-    
+
+AUTHENTICATION_BACKEND = ['django.contrib.auth.backends.ModelBackend']
