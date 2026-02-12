@@ -45,7 +45,7 @@ class User(AbstractUser):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.id}|{self.email}|{self.last_login_at}"
+        return f"{self.id}|{self.email}"
     
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
