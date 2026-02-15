@@ -1,14 +1,15 @@
-{% extends base/base.html %}
+{% extends "base/base.html" %}
 {% block main %}
 
-<h5>参戦記録の編集</h5>
+<h4>編集画面</h4>
         <form method="POST" enctype="multipart/form-date">
             {% csrf_token %}
-            {{ form.as_p }}
-            <p><button class="button js-modal-button" name="newrecord-image">画像を選択する</button></p>
-            <button type="submit">編集</button>
-            <button type="reset">削除する</button>
+            <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
+            <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
+            <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
+            <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
+            <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
+            <p><button type="submit">編集</button></p>
+            <button type="reset">削除する</a></button>
         </form>
-
-
 {% endblock %}
