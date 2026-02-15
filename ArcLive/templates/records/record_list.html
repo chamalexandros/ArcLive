@@ -1,7 +1,7 @@
 {% extends "base/base.html" %} 
 {% block main %}
 <h4>参戦記録一覧<h4>
-<form method="GET" action="{% url 'records:recordlist' %}" class="search-form-2">
+<form method="GET" action="{% url 'records:record_list' %}" class="search-form-2">
     <label>
         <input type="date" name="start_date" value="{{request.GET.start_date }}">
         <h6>~<h6>
@@ -17,19 +17,27 @@
     {% for record in record_list %}
         <li>
             <a href="{% url 'records:record_edit' record.id %}">
-                {{record.live_date}}: 
-                {% for ar in record.artist_records.all %}
-                    {{record.artist_id.name}}{% if not forloop.last %},{% endif %}:
+                <p>{{record.live_date}}</p>
+                <p>{% for ar in record.artist_records.all %}
+                    {{ ar.artist_id.name}}
                 {% endfor %}
-                {{record.event_name}}: 
-                {{record.venue_id.name}}</a>
+                </p>
+                <p>{{record.event_name}}</p> 
+                <p>{{record.venue_id.name}}</p>
+            </a>
+
+            {% if  record.live_image %}
+                <div class="record.live_image">
+                    <img src="{{ record.live_image.url }}" alt="record.live_image" style="width:20px;">
+                </div>
+            {% endif %}
         </li>
     {% empty %}
         <div>参戦記録が1つもありません</div>
     {% endfor %}
 </ul>
 
-<h4>アーティスト別参戦本数<h4>
+<h4>アーティスト別<h4>
 <ul>
     {% for item in artist_summary %}
         <li>
