@@ -9,6 +9,7 @@ from .models import Artist
 from .models import Venue
 from .models import Design_Setting
 from .forms import RecordMultiForm
+from django.db.models import Q
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -67,20 +68,33 @@ class RecordListView(LoginRequiredMixin, View):
     
     #指定期間による検索
     def get(self, request, *args, **kwargs):
-        date_min = self.request.GET.get('date_min')
-        date_max = self.request.GET.get('date_max')
+        date_min = self.request.GET.get('start_date')
+        date_max = self.request.GET.get('end_date')
 
         record_list = Record.objects.all()
-        
+    
         if date_min and date_max:
             record_list = Record.objects.filter(live_date__range=[date_min, date_max]).order_by('live_date') #両方入力
+            print(record_list)
+            
         elif date_min:
             record_list = Record.objects.filter(live_date__gte=date_min).order_by('live_date') #開始日以降の全て
+            print(record_list)
             
         elif date_max:
             record_list = Record.objects.filter(live_date__lte=date_max).order_by('live_date')#終了日以前の全て
+            print(record_list)
         else:
             record_list = Record.objects.all() #全て
+            print(record_list)
+            
+            record_list = record_list.prefetch_related('artist_records__artist_id')
+            
+        context = {
+            "record_list":record_list.order_by('-live_date'),
+            "searched" : True
+            }
+
 
     #検索結果からアーティストごとの参戦記録をカウント(本数が多い順に表示)
         artist_summary = record_list.values('artist_records__artist_id__name').annotate(
@@ -126,12 +140,12 @@ class RecordDeleteView(LoginRequiredMixin, View):
 
     def post(self,request, id):
         record = get_object_or_404(Record, id=id)
-        return redirect("records:recordlist")
+        return redirect("records:record_list")
 
 
 home =HomeView.as_view()
-recordcreate = RecordCreateView.as_view()
-recordlist = RecordListView.as_view()
-recordedit = RecordEditView.as_view()
-recordupdate = RecordUpdateView.as_view()
-recorddelete = RecordDeleteView.as_view()
+record_create = RecordCreateView.as_view()
+record_list = RecordListView.as_view()
+record_edit = RecordEditView.as_view()
+record_update = RecordUpdateView.as_view()
+record_delete = RecordDeleteView.as_view()
