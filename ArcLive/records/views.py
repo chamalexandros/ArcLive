@@ -9,7 +9,6 @@ from .models import Artist
 from .models import Venue
 from .models import Design_Setting
 from .forms import RecordMultiForm
-from django.db.models import Q
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -114,32 +113,63 @@ class RecordListView(LoginRequiredMixin, View):
 
 
 class RecordEditView(LoginRequiredMixin, View):
-    def get(self, request, id):
-        record = get_object_or_404(Record, id=id)
-        return render(request, "records/record_edit.html", {"Record": record})
+    def get(self, request, pk):
+        record = get_object_or_404(Record, pk=pk)
+        artist_link = Artist_Record.objects.filter(record_id=record).first()
+        artist = artist_link.artist_id if artist_link else None
+        venue =  record.venue_id
+        form = RecordMultiForm(instance={
+            'record_form':record,
+            'artist_form':artist,
+            'venue_form':venue
+            })
+        return render(request, "records/record_edit.html", {"record": record,"form":form})
 
 
 class RecordUpdateView(LoginRequiredMixin, View):
-    def get(self, request, id):
-        record = get_object_or_404(Record, id=id)
-        form = RecordForm(instance=record)
-        return render(request, "records/record_update.html", {"Record": record})
+    def get(self, request, pk):
+        record = get_object_or_404(Record, pk=pk)
+        artist_link = Artist_Record.objects.filter(record_id=record).first()
+        artist = artist_link.artist_id if artist_link else None
+        venue =  record.venue_id
+        form = RecordMultiForm(instance={
+            'record_form':record,
+            'artist_form':artist,
+            'venue_form':venue
+            })
+        return render(request, "records/record_list.html", {"record": record, "form": form})
     
-    def post(self,request, id):
-        record = get_object_or_404(Record, id=id)
-        form = RecordForm(request.POST, request.FILES, instance=record)
+    def post(self,request, pk):
+        record = get_object_or_404(Record, pk=pk)
+        artist_link = Artist_Record.objects.filter(record_id=record).first()
+        artist = artist_link.artist_id if artist_link else None
+        venue =  record.venue_id
+        form = RecordMultiForm(request.POST, request.FILES, instance={
+            'record_form':record,
+            'artist_form':artist,
+            'venue_form':venue
+            })
         if form.is_valid():
             form.save()
-            return redirect("records:record_edit", id=id)
+            return redirect("records:record_update", pk=pk)
         return render(request, "records/recordcreate_form.html", {"form": form})
 
 class RecordDeleteView(LoginRequiredMixin, View):
-    def get(self, request, id):
-        record = get_object_or_404(Record, id=id)
-        return render(request, "records/record_confirm_delete.html", {"Record": record})
+    def get(self, request, pk):
+        record = get_object_or_404(Record, id=pk)
+        artist_link = Artist_Record.objects.filter(record_id=record).first()
+        artist = artist_link.artist_id if artist_link else None
+        venue =  record.venue_id
+        form = RecordMultiForm(request.POST, request.FILES, instance={
+            'record_form':record,
+            'artist_form':artist,
+            'venue_form':venue
+            })
+        return render(request, "records/record_confirm_delete.html", {"record": record, "form":form})
 
-    def post(self,request, id):
-        record = get_object_or_404(Record, id=id)
+    def post(self, pk):
+        record = get_object_or_404(Record, id=pk)
+        record.delete()
         return redirect("records:record_list")
 
 
