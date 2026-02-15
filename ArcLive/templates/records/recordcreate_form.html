@@ -2,21 +2,20 @@
 {% block main %}
 
 <h4>参戦記録の新規登録</h4>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% if form.errors %}
-                <strong>入力内容にエラーがあります</strong>
-                {{ form.errors }}
-            {% endif %}
-            <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
-            <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
-            <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
-            <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
-            <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
-            <br>
-            <p><button type="submit">登録</button><p>
-            <br>
-            <button type="reset">キャンセル</button>
-        </form>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+            <strong>入力内容にエラーがあります</strong>
+            {{ form.errors }}
+        {% endif %}
+        <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
+        <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
+        <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
+        <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
+        <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
+        <br>
+        <p><button type="submit">登録</button><p>
+        <button type="reset">キャンセル</button>
+    </form>
 
 {% endblock %}
