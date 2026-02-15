@@ -53,7 +53,7 @@ class User(AbstractUser):
 
 
 class Preset_Image(models.Model):
-    preset_image_url = models.ImageField(verbose_name='アプリ内画像',upload_to="account/picture/preset")
+    preset_image_url = models.ImageField(verbose_name='アプリ内画像',upload_to="account/preset/")
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True) 
     def __str__(self):
@@ -63,6 +63,6 @@ class Preset_Image(models.Model):
 
 class User_Image(models.Model):
     user_id = models.ForeignKey('User', on_delete=models.CASCADE,verbose_name='ユーザーID')
-    user_image_url = models.ImageField(blank=True, null=True,verbose_name='ユーザーの本体の画像URL',upload_to="account/picture/user")
+    user_image_url = models.ImageField(blank=True, null=True,verbose_name='ユーザーの本体の画像URL',upload_to="account/user/")
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
