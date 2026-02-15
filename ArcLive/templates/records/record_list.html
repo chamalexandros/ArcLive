@@ -16,7 +16,7 @@
 <ul>
     {% for record in record_list %}
         <li>
-            <a href="{% url 'records:record_edit' record.id %}">
+            <a href="{% url 'records:record_update' record.id %}">
                 <p>{{record.live_date}}</p>
                 <p>{% for ar in record.artist_records.all %}
                     {{ ar.artist_id.name}}
