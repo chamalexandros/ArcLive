@@ -1,15 +1,22 @@
 {% extends "base/base.html" %}
 {% block main %}
 
-<h5>{{ record.live_date }}<h5>
-<div>{{ record.artist_id.name }}</div>
-<div>{{ record.event_name }}</div>
-<div>{{ record.venue_id.name }}</div>
-{% if record.live_image %}
-<img src="{{ record.live_image.url }}"/>
-{% endif %}
-<br>
-<a href="{% url 'records:record_update' record.id %}">編集</a>
-<a href="{% url 'records:record_delete' record.id %}">削除する</a>
+<h4>編集画面<h4>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+            <strong>入力内容にエラーがあります</strong>
+            {{ form.errors }}
+        {% endif %}
+        <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
+        <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
+        <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
+        <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
+        <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
+
+        <p><button type="submit"><a href="{% url 'records:record_update' record.pk %}">編集</a></button><p>
+    </form>
+<p><a href="{% url 'records:record_list'%}">一覧画面に戻る</a><p>
+<a href="{% url 'records:record_delete' record.pk %}" class="btn-delete">削除する</a>
 
 {% endblock %}
