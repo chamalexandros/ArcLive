@@ -1,16 +1,15 @@
 {% extends "base/base.html" %}
 {% block main %}
 
-<h5>{{ record.live_date }}<h5>
-<div>{{ record.artist_id.name }}</div>
-<div>{{ record.event_name }}</div>
-<div>{{ record.venue_id.name }}</div>
-{% if record.live_image %}
-<img src="{{ record.live_image.url }}"/>
-{% endif %}
-<br>
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit">削除する</button>
-</form>
+<h4>編集画面</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
+            <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
+            <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
+            <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
+            <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
+            <p><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">編集する</a></p>
+            <p><a href="{% url 'records:record_delete' record.id %}" class="button-style" role="button">削除する</a></p>
+        </form>
 {% endblock %}
