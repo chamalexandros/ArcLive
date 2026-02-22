@@ -168,15 +168,17 @@ class RecordUpdateView(LoginRequiredMixin, View):
 class RecordDeleteView(LoginRequiredMixin, View):
     def get(self, request, pk):
         record = get_object_or_404(Record, id=pk)
-        artist_link = Artist_Record.objects.filter(record_id=record).first()
-        artist = artist_link.artist_id if artist_link else None
-        venue =  record.venue_id
-        form = RecordMultiForm(request.POST, request.FILES, instance={
-            'record_form':record,
-            'artist_form':artist,
-            'venue_form':venue
-            })
-        return render(request, "records/record_confirm_delete.html", {"record": record, "form":form})
+        #artist_link = Artist_Record.objects.filter(record_id=record).first()
+        #artist = artist_link.artist_id if artist_link else None
+        #venue =  record.venue_id
+        #form = RecordMultiForm(request.POST, request.FILES, instance={
+            #'record_form':record,
+            #'artist_form':artist,
+            #'venue_form':venue
+            #})
+        record.delete()
+        return redirect("records:record_list")
+        #return render(request, "records/record_confirm_delete.html", {"record": record, "form":form})
 
     def post(self, pk):
         record = get_object_or_404(Record, id=pk)
