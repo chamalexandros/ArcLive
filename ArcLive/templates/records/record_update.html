@@ -2,7 +2,7 @@
 {% block main %}
 
 <h4>編集画面</h4>
-        <form method="POST" enctype="multipart/form-date">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
             <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
@@ -10,6 +10,6 @@
             <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
             <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
             <p><button type="submit">編集</button></p>
-            <button type="reset">削除する</a></button>
+            <button type="reset">削除する</button>
         </form>
 {% endblock %}
