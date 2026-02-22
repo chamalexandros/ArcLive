@@ -9,7 +9,7 @@
             <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
             <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
             <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
-            <p><button type="submit">編集</button></p>
-            <button type="reset">削除する</button>
+            <p><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">編集する</a></p>
+            <p><a href="{% url 'records:record_delete' record.id %}" class="button-style" role="button">削除する</a></p>
         </form>
 {% endblock %}
