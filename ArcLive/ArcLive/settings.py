@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'records.apps.RecordsConfig',
-    'betterforms'
+    'betterforms',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
