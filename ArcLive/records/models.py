@@ -20,11 +20,11 @@ class Record(models.Model):
         def __str__(self):
             return f"{self.live_date}|{self.event_name}"
         
-        #def delete(self,*args, **kwargs):
-            live_image =self.live_image
-            super().delete(*args, **kwargs)
-            if live_image:
-                Path(live_image.path).unlink(missing_ok=True)
+    def delete(self, *args, **kwargs):
+        live_image = self.live_image
+        super().delete(*args, **kwargs)
+        if live_image:
+            Path(live_image.path).unlink(missing_ok=True)
 
 
 
