@@ -1,12 +1,14 @@
+{% load static %}
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>ArcLive&#127928;</title>
         {% bootstrap_css %}
-        {% bootstrap_javascript %}
-        <link rel= "stylesheet" href="base.css">
-        <meta name="viewport" content="width=device-width,intial-scale=1">
+        <link rel="stylesheet" href="{% static 'base/base.css' %}">
+        
     </head>
     <!-- 以下が画面に表示される-->
     <body>
@@ -17,35 +19,36 @@
         </main>
         <footer>
             <div>
-                <input id="image_home" type="radio" value="image_home.png" name="image">
+                <input id="image_home"; type="radio"; style="display:none"; value="image_home.png"; name="image">
                 <label for="image_home">
                     <a href="{% url 'records:home'%}">
-                        <img src="C:\Users\sampl\Pictures\home.png">
+                        <img src="/media/footer/home.png">
                     </a>
                 </label>
         
-                <input id="image_plus" type="radio" value="image_plus.png" name="image">
+                <input id="image_plus" type="radio" style="display:none"; value="image_plus.png" name="image">
                 <label for="image_plus">
                     <a href="{% url 'records:record_create' %}">
-                        <img src="C:\Users\sampl\Pictures\plus.png">
+                        <img src="/media/footer/onnpu.png">
                     </a>
                 </label>
                 
-                <input id="image_document" type="radio" value="image_document.png" name="image">
+                <input id="image_document" type="radio" style="display:none"; value="image_document.png" name="image">
                 <label for="image_document">
                     <a href="{% url 'records:record_list'%}">
-                        <img src="C:\Users\sampl\Pictures\document.png">
+                        <img src="/media/footer/document.png">
                     </a>
                 </label>
                 
-                <input id="image_account" type="radio" value="image_account.png" name="image">
+                <input id="image_account" type="radio" style="display:none"; value="image_account.png" name="image">
                 <label for="image_account">
                     <a href="{% url 'accounts:mypage'%}">
-                        <img src="C:\Users\sampl\Pictures\account.png">
+                        <img src="/media/footer/account.png">
                     </a>
                 </label>
             </div>
            
-    </footer>
+        </footer>
+            {% bootstrap_javascript %}
     </body>
 </html>
