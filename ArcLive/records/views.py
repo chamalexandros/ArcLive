@@ -9,11 +9,13 @@ from .models import Artist
 from .models import Venue
 from .models import Design_Setting
 from .forms import RecordMultiForm
+from accounts.models import Preset_Image
 
 
 class HomeView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'records/home.html')
+    def get(self,request):
+        presetimage = Preset_Image.objects.all()
+        return render(request, 'records/home.html', {'presetimage' : presetimage})
 
 
 class RecordCreateView(LoginRequiredMixin, View):
