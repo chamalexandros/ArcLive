@@ -33,13 +33,11 @@ class RecordCreateView(LoginRequiredMixin, View):
             
             #Artistの重複を防ぐ
             artist, created = Artist.objects.get_or_create(name=artist.name)
-            artist.save()
             
             venue, created = Venue.objects.get_or_create(name=venue.name)
             
-            venue.save()
-            
             record.user_id = request.user
+            record.venue_id = venue
             record.save()
             
             Artist_Record.objects.get_or_create(
