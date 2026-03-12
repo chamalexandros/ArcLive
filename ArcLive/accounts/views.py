@@ -7,6 +7,7 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.views import generic
 from django.contrib.auth import views as auth_view
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 class SignupView(generic.CreateView):
     form_class = CustomUserCreationForm
@@ -43,10 +44,34 @@ class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
         return super().form_valid(form)
 
         
-    
+
+class PasswordReset(PasswordResetView):
+    """パスワード変更用URLの送付ページ"""
+    subject_template_name = 'mail/subject.txt'
+    email_template_name = 'mail/message.txt'
+    template_name = 'password_reset_form.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
+
+class PasswordResetDone(PasswordResetDoneView):
+    """パスワード変更用URLを送りましたページ"""
+    template_name = 'password_reset_done.html'
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    """新パスワード入力ページ"""
+    success_url = reverse_lazy('accounts:password_reset_complete')
+    template_name = 'password_reset_confirm.html'
+
+class PasswordResetComplete(PasswordResetCompleteView):
+    """新パスワード設定しましたページ"""
+    template_name = 'password_reset_complete.html'
+   
     
 
 mypage = MypageView.as_view()
 change_email = ChangeEmailView.as_view()
 change_password = PasswordChangeView.as_view()
 signup = SignupView.as_view()
+password_reset = PasswordReset.as_view()
+password_reset_done = PasswordResetDone.as_view()
+password_reset_confirm = PasswordResetConfirm.as_view()
+password_reset_complete = PasswordResetComplete.as_view()
