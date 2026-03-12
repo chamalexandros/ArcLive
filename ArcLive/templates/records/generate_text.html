@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block main %}
+<h4 style="margin-bottom: 10px;">テキスト生成結果<h4>
+<div class="generate_text">
+    <textarea id="textToCopy" class="resize" rows=10 >{{ generate_text }}</textarea>
+    <p><button id="copyBtn">コピー</button></p>
+</div>
+    <a href="https://twitter.com/intent/tweet?text={{ generate_text|urlencode }}" 
+        target="_blank" 
+        rel="nofollow"
+        class="btn-x">
+    Xに共有する</a>
+<div>
+    <a href="{% url 'records:home' %}" class="button-style" role="button">削除</a>
+</div>
+
+{% endblock %}
