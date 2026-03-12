@@ -10,12 +10,67 @@ from .models import Venue
 from .models import Design_Setting
 from .forms import RecordMultiForm
 from accounts.models import Preset_Image
-
+from django.utils import timezone
 
 class HomeView(LoginRequiredMixin, View):
-    def get(self,request):
+    #過去、今年、未来（今日以降）の参戦記録本数をカウント
+    def get(self,request, *args, **kwargs):
+        today = timezone.now().date()
+        past_count = Record.objects.filter(user_id=request.user,live_date__lt=today).count()
+        this_year_count = Record.objects.filter(user_id=request.user,live_date__year=today.year).count()
+        future_count = Record.objects.filter(user_id=request.user,live_date__gte=today).count()
+        
         presetimage = Preset_Image.objects.all()
-        return render(request, 'records/home.html', {'presetimage' : presetimage})
+        
+        is_generate_clicked = request.GET.get('generate_btn')
+        
+        start_date = request.GET.get('start-date')
+        end_date = request.GET.get('end-date')
+        
+        #デフォルトは全件
+        records = Record.objects.filter(user_id=request.user)
+        # 開始日以降全て
+        if start_date and not end_date:
+            records = records.filter(live_date__gte=start_date)
+        #終了日以前全て
+        elif not start_date and end_date:
+            records = records.filter(live_date__lte=end_date)
+        #開始日～終了日
+        if start_date and end_date:
+            records = records.filter(live_date__range=[start_date, end_date])
+            
+        generate_text = ""
+        if is_generate_clicked:
+            for r in records.order_by('live_date'):
+                date_str = r.live_date.strftime('%m/%d')
+                artist_names = []
+                for ar in r.artist_records.all():
+                    artist_names.append(ar.artist_id.name)
+                artists_display = "/".join(artist_names) if artist_names else "アーティスト不明"
+                line =f"{date_str} {artists_display} {r.event_name}\n"
+                generate_text += line
+        
+        context = {
+            'past_count': past_count,
+            'this_year_count': this_year_count,
+            'future_count': future_count,
+            'presetimage' : presetimage,
+            'record_list': records.order_by('live_date'),
+            'generate_text' : generate_text,
+        }
+        
+        if generate_text:
+            return render(request, 'records/generate_text.html',context)
+        
+        return render(request, 'records/home.html',context)
+
+
+class GenerationDeleteView(View):
+    def post(self,request):
+        return redirect('home')
+        
+        
+
 
 
 class RecordCreateView(LoginRequiredMixin, View):
@@ -187,6 +242,7 @@ class RecordDeleteView(LoginRequiredMixin, View):
 
 
 home =HomeView.as_view()
+generate_delete = GenerationDeleteView.as_view()
 record_create = RecordCreateView.as_view()
 record_list = RecordListView.as_view()
 record_edit = RecordEditView.as_view()
