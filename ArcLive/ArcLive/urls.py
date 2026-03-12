@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 
+
 #プロジェクト全体のルーティング
 #path以降は含めたいアプリケーションのルーティングを記載
 #例：records/に対してrecords.urlsを紐づけているので、records/を加えるとそのページにアクセス可能になる
