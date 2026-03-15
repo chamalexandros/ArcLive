@@ -176,7 +176,7 @@ MEDIA_URL = "/media/"
 
 
     # 本番環境ではSMTPサーバーを使ってメール送信
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "ArcLive70@gmail.com"
