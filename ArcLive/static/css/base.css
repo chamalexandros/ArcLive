@@ -16,7 +16,7 @@ h3 {
 
 .viewport {
   width: 100%;
-  background: yellow;
+  background: #9bbcf3;
   min-height: 731px;
 }
 @media (min-width: 1024px){
