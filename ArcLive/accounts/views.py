@@ -4,15 +4,18 @@ from django.views import View
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomPasswordResetForm
 from django.views import generic
 from django.contrib.auth import views as auth_view
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
+
+
+
 class SignupView(generic.CreateView):
     form_class = CustomUserCreationForm
     template_name ='accounts/signup.html'
-    success_url = reverse_lazy('/login/')
+    success_url = reverse_lazy('login')
 
 
 class MypageView(LoginRequiredMixin, View):
@@ -47,23 +50,24 @@ class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
 
 class PasswordReset(PasswordResetView):
     """パスワード変更用URLの送付ページ"""
-    subject_template_name = 'mail/subject.txt'
-    email_template_name = 'mail/message.txt'
-    template_name = 'password_reset_form.html'
-    success_url = reverse_lazy('accounts:password_reset_done')
+    form_class = CustomPasswordResetForm
+    subject_template_name = 'registration/mail_subject.txt'
+    email_template_name = 'registration/mail_message.txt'
+    template_name = 'registration/password_reset_form.html'
+    success_url = reverse_lazy('password_reset_done')
 
 class PasswordResetDone(PasswordResetDoneView):
     """パスワード変更用URLを送りましたページ"""
-    template_name = 'password_reset_done.html'
+    template_name = 'registration/password_reset_done.html'
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     """新パスワード入力ページ"""
-    success_url = reverse_lazy('accounts:password_reset_complete')
-    template_name = 'password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+    template_name = 'registration/password_reset_confirm.html'
 
 class PasswordResetComplete(PasswordResetCompleteView):
     """新パスワード設定しましたページ"""
-    template_name = 'password_reset_complete.html'
+    template_name = 'registration/password_reset_complete.html'
    
     
 
