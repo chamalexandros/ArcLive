@@ -13,37 +13,43 @@
     </head>
     <!-- 以下が画面に表示される-->
     <body>
-        <header class="logo">
-        </header>
-        <main class="main-container">
-            {% block main %}
-            {% endblock %}
+        <main>
+            <div class="viewport">
+                <h3>ArcLive&#127928;<h3>
+                {% block main %}
+                {% endblock %}
+            </div>
         </main>
+
         <footer>
-            <div class="flex-box">
-                <div class="flex-item">
-                    <a href="{% url 'records:home'%}">
-                        <img src="/media/footer/home2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item">
-                    <a href="{% url 'records:record_create'%}">
-                        <img src="/media/footer/onnpu2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item">
-                    <a href="{% url 'records:record_list'%}">
-                        <img src="/media/footer/list2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item">
-                    <a href="{% url 'accounts:mypage'%}">
-                        <img src="/media/footer/account2.jpg">
-                    </a>
+            <div class="viewport">
+                <div class="flex-box">
+                    <div class="flex-item">
+                        <a href="{% url 'records:home'%}">
+                            <img src="/media/footer/home2.jpg">
+                        </a>
+                    </div>
+                    <div class="flex-item">
+                        <a href="{% url 'records:record_create'%}">
+                            <img src="/media/footer/onnpu2.jpg">
+                        </a>
+                    </div>
+                    <div class="flex-item">
+                        <a href="{% url 'records:record_list'%}">
+                            <img src="/media/footer/list2.jpg">
+                        </a>
+                    </div>
+                    <div class="flex-item">
+                        <a href="{% url 'accounts:mypage'%}">
+                            <img src="/media/footer/account2.jpg">
+                        </a>
+                    </div>
                 </div>
             </div>
-            
+                
         </footer>
             {% bootstrap_javascript %}
+
+
     </body>
 </html>
