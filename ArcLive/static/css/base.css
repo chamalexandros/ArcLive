@@ -1,112 +1,62 @@
 /*  CSSは　どの要素｛　何を：　どうする；　｝で書く*/
 
 /* background-color: #9bbcf3 */
-
+@charset "UTF-8";
 /* リセットCSS */
 html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
 h3 {
   font-family:cursive;
   width: 50%;
+  font-size: 5vh;
 }
-
-.viewport {
-  width: 100%;
-  background: #9bbcf3;
-  min-height: 731px;
+h4 {
+  font-size: 4vh;
 }
-@media (min-width: 1024px){
-  .viewport {
-  width: 100%;
-  background: #9bbcf3;
-}
+h5 {
+  font-size: 3vh;
 }
 
 
-body {
-  background-attachment: fixed;
+img {
+  width:25vw;
+  padding-top: 25%;
+}
+
+body{
+  background-color:#9bbcf3;
+}
+
+footer{
   background-color: #9bbcf3;
-  position: center;
-  top: 0;
-  width: 100%;
-  max-width: 1920px;
-  margin-top:  0;
-  padding-top: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.homebox {
-  display: flex;
-  justify-content: space-around;
-}
-
-
-
-footer {
-  background-color: #9bbcf3;
-  position: fixed;
-  width: 100%;
-  height: 10%;
-  margin-top: 0;
-  padding-top: 0;
-  position: absolute;
-  bottom: 0;
-  margin-bottom: -10%;/*フッターの高さと等しいネガティブマージン*/
-}
-
-.push {
-  height: 10%;/*フッターと同じ高さに指定*/
 }
 
 .flex-box {
   display: flex;
+  width: 360px;
   text-align: center;
   margin: 10px ;
   justify-content: space-around;
 }
 
-.flex-item img{
-  max-width: 100%;
-  width: 10rem;
-  height: auto;
-
-}
+/*flex: ［flex-growの値］ ［flex-shrinkの値］ ［flex-basisの値］;*/
 .flex-item2 {
   width: 100px;
-  margin: 10px;
-  height: auto;
-  padding: 1px; 
-  margin-bottom: 10px;
-  border: 1px solid #686666;
-
+  aspect-ratio: 1/1;
+  padding: 10px 10px;
+  margin: 20px 0;
+  color: #000000;
+  background: #e4fcff;/*背景色*/
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
 }
 
-body main.main-container div.generate_text textarea#textToCopy {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    display: block !important;
-    white-space: pre !important; 
-    overflow-x: auto !important;
-    height: 300px !important;
-    background-color: white !important;
-    color: black !important;
-    padding: 10px !important;
+.home-label {
+  margin: 0;
+  padding: 0;
+  color: #000000;
 }
-
-/* 親要素も道連れで広げる */
-body main.main-container div.generate_text {
-    width: 100% !important;
-    display: block !important;
-    flex: 0 0 100% !important;
-}
-
-
-
-
-@media (min-width: )
