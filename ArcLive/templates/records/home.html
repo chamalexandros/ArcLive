@@ -1,22 +1,25 @@
 {% extends "base/base.html" %}
 {% load static %}<script src="{% static 'js/html2canvas.min.js' %}"></script>
 {% block main %}
-<p></p>
-<div style="padding: 1px; width:70px; margin-bottom: 10px; border: 1px solid #686666;">
-<h5>これまでの参戦</h5>
-<p>{{ past_count|default:0 }}<p>
+<div class="flex-box">
+    <div class="flex-item2">
+    <h5>参戦済</h5>
+    <p class="home-label">{{ past_count|default:0 }}<p>
+    </div>
+    <div class="flex-item2">
+    <h5>今年参戦</h5>
+    <p class="home-label">{{ this_year_count|default:0 }}<p>
+    </div>
+    <div class="flex-item2">
+    <h5>参戦予定</h5>
+    <p class="home-label">{{ future_count|default:0 }}<p>
+    </div>
 </div>
-<div style="padding: 1px; width:70px; margin-bottom: 10px; border: 1px solid #686666;">
-<h5>今年参戦</h5>
-<p>{{ this_year_count|default:0 }}<p>
-</div>
-<div style="padding: 1px; width:70px; margin-bottom: 10px; border: 1px solid #686666;">
-<h5>参戦予定</h5>
-<p>{{ future_count|default:0 }}<p>
-</div>
+
 <div id="date1"class="date"></div>
 <form method="GET" action="">
 <input name="start-date" type="date"/><h6>~</h6><input name="end-date" type="date"/>
+
 <p><select name="font" size=1>
     <option value="フォント選択">フォントを選択</option>
     <option value="ヒラギノ角ゴシック">ヒラギノ角ゴシック</option>
