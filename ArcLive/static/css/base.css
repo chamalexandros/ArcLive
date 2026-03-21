@@ -21,6 +21,15 @@ h5 {
   font-size: 3vh;
 }
 
+.viewport {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
 
 img {
   width:25vw;
@@ -29,23 +38,55 @@ img {
 
 body{
   background-color:#9bbcf3;
+  justify-content: center;
 }
 
 footer{
   background-color: #9bbcf3;
+  margin-bottom: 0;
+}
+
+.footer-box {
+  display: flex;
+  width: 320px;
+  text-align: center;
+  justify-content: space-around;
+  margin: 0;
 }
 
 .flex-box {
   display: flex;
-  width: 360px;
+  width: 320px;
   text-align: center;
-  margin: 10px ;
   justify-content: space-around;
+  margin: 5px 0;
 }
 
+
+.flex-box1 {
+  display: flex;
+  width: 320px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-datebox {
+  display: flex;
+  width: 320px;
+  text-align: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+
 /*flex: ［flex-growの値］ ［flex-shrinkの値］ ［flex-basisの値］;*/
+.flex-item1 {
+  flex: 1 1 auto;
+}
+
 .flex-item2 {
-  width: 100px;
+  width: 90px;
   aspect-ratio: 1/1;
   padding: 10px 10px;
   margin: 20px 0;
@@ -55,8 +96,91 @@ footer{
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
 }
 
+
 .home-label {
   margin: 0;
   padding: 0;
   color: #000000;
+}
+
+.span {
+  font-size: 5px;
+}
+
+#start-date1 {
+  width: 103px;
+  font-size: 14px;
+  background: #e4fcff;
+}
+
+#end-date1 {
+  width: 103px;
+  font-size: 14px;
+  background: #e4fcff;
+}
+
+input[type="date"] {
+  padding: 5px 10px;
+  border: solid 1px #8f8f8f;     /* 枠線指定 */
+  border-radius: 5px;        /* 角丸指定 */
+}
+
+form {
+  display: block;
+  width: 240px;
+  margin-top: 0em;
+  unicode-bidi: isolate;
+}
+
+select {
+  word-wrap: normal;
+  width: 240px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 16px;
+  border: solid 1px #8f8f8f;     /* 枠線指定 */
+  border-radius: 5px;        /* 角丸指定 */
+}
+
+#font {
+  width: 240px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 16px;
+  background: #e4fcff;
+}
+
+#color {
+  width: 240px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 16px;
+  background: #e4fcff;
+}
+
+
+#generate {
+  text-align: center;
+  font-size: 20px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #1dc1d6;/*ボタン色*/
+  color: #FFF;
+  border: #1dc1d6;
+  border-bottom: solid 4px #1799aa;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  width: 240px;
+  font-size: 16px;
+  margin: 10px 10px;
+  justify-content:center
 }
