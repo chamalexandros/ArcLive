@@ -1,55 +1,73 @@
 {% extends "base/base.html" %}
 {% load static %}<script src="{% static 'js/html2canvas.min.js' %}"></script>
 {% block main %}
-<div class="flex-box">
-    <div class="flex-item2">
-    <h5>参戦済</h5>
-    <p class="home-label">{{ past_count|default:0 }}<p>
-    </div>
-    <div class="flex-item2">
-    <h5>今年参戦</h5>
-    <p class="home-label">{{ this_year_count|default:0 }}<p>
-    </div>
-    <div class="flex-item2">
-    <h5>参戦予定</h5>
-    <p class="home-label">{{ future_count|default:0 }}<p>
+<div class="flex-box1">
+    <div class="flex-box">
+        <div class="flex-item2">
+        <h5>参戦済</h5>
+        <p class="home-label">{{ past_count|default:0 }}<p>
+        </div>
+        <div class="flex-item2">
+        <h5>今年参戦</h5>
+        <p class="home-label">{{ this_year_count|default:0 }}<p>
+        </div>
+        <div class="flex-item2">
+        <h5>参戦予定</h5>
+        <p class="home-label">{{ future_count|default:0 }}<p>
+        </div>
     </div>
 </div>
 
-<div id="date1"class="date"></div>
-<form method="GET" action="">
-<input name="start-date" type="date"/><h6>~</h6><input name="end-date" type="date"/>
+<div class="flex-box1">
+    <div id="date1" class="flex-datebox">
+        <div style="display:inline-flex">
+            <form method="GET" action="">
+                <label class="date-label">
+                    <input name="start-date1" id="start-date1" type="date"/>
+                    <span class="kara">~</span>
+                    <input name="end-date1" id="end-date1" type="date"/>
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="flex-box1">
+    <select name="color" id="font" size=1>
+        <option value="色を選択">色を選択</option>
+        <option value="#000000">黒</option>
+        <option value="#c0c0c0">グレー</option>
+        <option value="#ffffff">白</option>
+        <option value="#ff0000">赤</option>
+        <option value="#ff00ff">ピンク</option>
+        <option value="#ffff00">黄</option>
+        <option value="#00ff00">緑</option>
+        <option value="#0000ff">青</option>
+    </select>
+</div>
 
-<p><select name="font" size=1>
-    <option value="フォント選択">フォントを選択</option>
-    <option value="ヒラギノ角ゴシック">ヒラギノ角ゴシック</option>
-    <option value="Noto Sans">Noto Sans</option>
-    <option value="Noto Serif">Noto Serif</option>
-    <option value="M Plus 1p">M Plus 1p</option>
-    <option value="Oswald">Oswald</option>
-    <option value="Roboto">Roboto</option>
-</select></p>
+<div class="flex-box1">
+    <select name="font" id="font" size=1>
+        <option value="フォント選択">フォントを選択</option>
+        <option value="ヒラギノ角ゴシック">ヒラギノ角ゴシック</option>
+        <option value="Noto Sans">Noto Sans</option>
+        <option value="Noto Serif">Noto Serif</option>
+        <option value="M Plus 1p">M Plus 1p</option>
+        <option value="Oswald">Oswald</option>
+        <option value="Roboto">Roboto</option>
+    </select>
+</div>
 
-<p><select name="color" size=1>
-    <option value="色を選択">色を選択</option>
-    <option value="#000000">黒</option>
-    <option value="#c0c0c0">グレー</option>
-    <option value="#ffffff">白</option>
-    <option value="#ff0000">赤</option>
-    <option value="#ff00ff">ピンク</option>
-    <option value="#ffff00">黄</option>
-    <option value="#00ff00">緑</option>
-    <option value="#0000ff">青</option>
-</select></p>
 
 <!-- モーダルウィンドウの内容 -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BackImageModal">
-  背景画像を選択
-</button>
+<div class="flex-box1">
+    <button type="button" class="d-md-none btn btn-primary" data-bs-toggle="modal" data-bs-target="#BackImageModal">
+    背景画像を選択
+    </button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="BackImageModal" tabindex="-1" aria-labelledby="BackImageModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-sm: 300px">
     <div class="modal-content">
 
       <div id="modal-menu-view">
@@ -91,8 +109,7 @@
     <p>選択中の画像:</p>
     <img id="current-bg-thumbnail" src="" style="width:100px; border:2px solid #5f5f5f;">
 </div>
-<div><button type="submit" name="generate_btn" value="1" id="generate">生成</button>
-</form>
+<div class="flex-box"><button type="submit" name="generate_btn" value="1" id="generate">生成</button>
 <canvas id="live_canvas" style="display:none;"></canvas>
 </div>
 
