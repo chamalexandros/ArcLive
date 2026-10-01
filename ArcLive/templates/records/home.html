@@ -1,5 +1,8 @@
 {% extends "base/base.html" %}
-{% load static %}<script src="{% static 'js/html2canvas.min.js' %}"></script>
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/home.css">
+{% endblock %}
 {% block main %}
 <div class="flex-box1">
     <div class="flex-box">
@@ -18,127 +21,377 @@
     </div>
 </div>
 
-<div class="flex-box1">
-    <div id="date1" class="flex-datebox">
-        <div style="display:inline-flex">
-            <form method="GET" action="">
+<form method="POST" action="{% url 'records:generate' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex-box1">
+        <div id="date1" class="flex-datebox">
+            <div style="display:inline-flex">
                 <label class="date-label">
-                    <input name="start-date1" id="start-date1" type="date"/>
+                    <input name="start_date" id="start_date" type="text" readonly placeholder="年/月/日"/>
                     <span class="kara">~</span>
-                    <input name="end-date1" id="end-date1" type="date"/>
+                    <input name="end_date" id="end_date" type="text" readonly placeholder="年/月/日"/>
                 </label>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="flex-box1">
-    <select name="color" id="font" size=1>
-        <option value="色を選択">色を選択</option>
-        <option value="#000000">黒</option>
-        <option value="#c0c0c0">グレー</option>
-        <option value="#ffffff">白</option>
-        <option value="#ff0000">赤</option>
-        <option value="#ff00ff">ピンク</option>
-        <option value="#ffff00">黄</option>
-        <option value="#00ff00">緑</option>
-        <option value="#0000ff">青</option>
-    </select>
-</div>
+    <!-- 日付選択モーダル(ホイール式) -->
+    <div class="modal fade" id="DatePickerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-date-content">
+                <div class="modal-header">
+                    <h5 class="modal-date-title">日付を選択</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="wheel-picker">
+                        <div class="wheel-column" id="wheel-year"></div>
+                        <div class="wheel-column" id="wheel-month"></div>
+                        <div class="wheel-column" id="wheel-day"></div>
+                        <div class="wheel-highlight"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary w-100" id="confirmDateBtn">決定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="flex-box1">
-    <select name="font" id="font" size=1>
-        <option value="フォント選択">フォントを選択</option>
-        <option value="ヒラギノ角ゴシック">ヒラギノ角ゴシック</option>
-        <option value="Noto Sans">Noto Sans</option>
-        <option value="Noto Serif">Noto Serif</option>
-        <option value="M Plus 1p">M Plus 1p</option>
-        <option value="Oswald">Oswald</option>
-        <option value="Roboto">Roboto</option>
-    </select>
-</div>
+    <div class="flex-box1">
+        <select name="color" id="color" size=1>
+            <option value="色を選択">色を選択</option>
+            <option value="black">黒</option>
+            <option value="gray">グレー</option>
+            <option value="white">白</option>
+            <option value="red">赤</option>
+            <option value="pink">ピンク</option>
+            <option value="yellow">黄</option>
+            <option value="green">緑</option>
+            <option value="blue">青</option>
+        </select>
+    </div>
+
+    <div class="flex-box1">
+        <select name="font" id="font" size=1>
+            <option value="フォント選択">フォントを選択</option>
+            <option value="hiragino">ヒラギノ角ゴシック</option>
+            <option value="Noto Sans">Noto Sans</option>
+            <option value="Noto Serif">Noto Serif</option>
+            <option value="M Plus 1p">M Plus 1p</option>
+            <option value="Oswald">Oswald</option>
+            <option value="Roboto">Roboto</option>
+        </select>
+    </div>
 
 
 <!-- モーダルウィンドウの内容 -->
-<div class="flex-box1">
-    <button type="button" class="d-md-none btn btn-primary" data-bs-toggle="modal" data-bs-target="#BackImageModal">
-    背景画像を選択
-    </button>
-</div>
+    <div class="flex-box1">
+        <button type="button" class="modal-omote" data-bs-toggle="modal" data-bs-target="#BackImageModal">
+        背景画像を選択
+        </button>
+    </div>
 
 <!-- Modal -->
-<div class="modal fade" id="BackImageModal" tabindex="-1" aria-labelledby="BackImageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm: 300px">
-    <div class="modal-content">
+    <div class="modal fade" id="BackImageModal" tabindex="-1" aria-labelledby="BackImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm: 200px">
+        <div class="modal-content">
 
-      <div id="modal-menu-view">
-        <div class="modal-header">
-          <h5 class="modal-title" id="BackImageModalLabel">背景画像を選択</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-4">
-            <label class="btn btn-outline-dark w-100 py-2 mb-2">カメラロールから選択</label>
-            <input type="file"; class="d-done"; accept="image/*"; id="user-image" >
-          </div>
-          <hr>
-            <button type="button" class="btn btn-outline-primary w-100" id="presetimage">アプリ内の画像から選択</button>
-        </div>
-   
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-        </div>
-      </div>
-
-
-        <div id="modal-preset-view" style="display:none;">
-          <div class="modal-header">
-            <button type="button" class="btn btn-smbtn-secondary me-2" id="btn-back-to-menu">＜戻る</button>
-            <h5 class="modal-title">アプリ内の画像から選択</h5>
+        <div id="modal-menu-view">
+            <div class="modal-header">
+            <h5 class="modal-title" id="BackImageModalLabel">背景画像を選択</h5>
+            </div>
+            <div class="modal-body">
+            <div class="mb-4">
+                <label for="user-image" class="btn btn-dark w-100 py-2 mb-2">端末から選択</label>
+                <input type="file"; class="d-none"; accept="image/*"; id="user-image"; name="user-image" >
+            </div>
+                <button type="button" class="btn btn-primary w-100" id="presetimage">アプリ内の画像から選択</button>
+            </div>
+    
+            <div class="modal-footer">
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>    
-          <div class="d-flex flex-wrap gap-2"; id=preset-image-list>
-            {% for img_obj in presetimage %}
-              <img src="{{ img_obj.preset_image_url.url }}" class="preset-option" style="width:calc(50% - 5px);aspect-ratio:1/1; object-fit:cover; cursor:pointer;">
-            {% endfor %}
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="selected-preview" style="display:none;">
-    <p>選択中の画像:</p>
-    <img id="current-bg-thumbnail" src="" style="width:100px; border:2px solid #5f5f5f;">
-</div>
-<div class="flex-box"><button type="submit" name="generate_btn" value="1" id="generate">生成</button>
-<canvas id="live_canvas" style="display:none;"></canvas>
-</div>
 
-<!--
+
+            <div id="modal-preset-view" style="display:none;">
+            <div class="modal-header2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title">アプリ内画像から選択</h5>
+                <div></div>
+            </div>    
+            <div class="d-flex flex-wrap gap-2" id="preset-image-list" >
+                {% for img_obj in presetimage %}
+                <img src="{{ img_obj.preset_image_url.url }}" 
+                class="preset-option"
+                data-id="{{ img_obj.id }}"
+                style="width:calc(50% - 5px);aspect-ratio:1/1; object-fit:cover; cursor:pointer;">
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div id="selected-preview" style="display:none;">
+        <img id="current-bg-thumbnail" src="" style="width:50px;" name="current-bg-thumbnail">
+    </div>
+
+    <div class="flex-box4">
+        <button type="submit" name="generate_btn" value="1" id="generate">生成</button>
+        <canvas id="live_canvas" style="display:none;"></canvas>
+    </div>
+    <input type="hidden" name="selected_preset_id" id="selected_preset_id" value="">
+</form>
+
+
 <script>
-/*
+
+(function () {
+  const ITEM_HEIGHT = 36;
+  const PADDING_COUNT = 2;
+
+  function daysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  /** 慣性スクロール(速度を毎フレーム減衰させながらscrollTopを動かす) */
+  function inertiaScroll(el, initialSpeed, onFinish) {
+    let speed = initialSpeed;
+    let frameId;
+    function frame() {
+      el.scrollTop += speed;
+      speed *= 0.85;
+      if (Math.abs(speed) < 0.5) {
+        onFinish();
+        return;
+      }
+      frameId = requestAnimationFrame(frame);
+    }
+    frame();
+    return () => { if (frameId != null) cancelAnimationFrame(frameId); };
+  }
+
+  function scrollToIndex(el, index, animate) {
+    const top = index * ITEM_HEIGHT;
+    if (animate) el.scrollTo({ top, behavior: 'smooth' });
+    else el.scrollTop = top;
+  }
+
+  /**
+   * 1カラム分のホイールピッカーをセットアップする(イベント登録は1度だけ)
+   * onSelect(value) は値が確定した時に呼ばれる
+   * 戻り値の setValues(values, selectedValue) で表示項目を更新する
+   */
+  function setupWheelColumn(el, onSelect) {
+    let values = [];
+    let startPosY = null, startScrollTop = null;
+    let touchStartTime = null, touchLastMoveTime = null;
+    let cancelInertia = null;
+    let wheelTimer = null;
+    let downPos = null;
+
+    function finishScroll() {
+      const centerIndex = Math.round(el.scrollTop / ITEM_HEIGHT);
+      const clamped = Math.max(0, Math.min(values.length - 1, centerIndex));
+      scrollToIndex(el, clamped, true);
+      if (values[clamped]) onSelect(values[clamped].value);
+    }
+
+    // マウスホイール操作
+    el.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (cancelInertia) { cancelInertia(); cancelInertia = null; }
+      el.scrollTop += e.deltaY;
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(finishScroll, 100);
+    }, { passive: false });
+
+    // タッチ/マウスドラッグ開始・移動・終了
+    function handleStart(e) {
+      e.preventDefault();
+      if (cancelInertia) { cancelInertia(); cancelInertia = null; }
+      const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      startPosY = y;
+      startScrollTop = el.scrollTop;
+      touchStartTime = performance.now();
+      touchLastMoveTime = touchStartTime;
+      // マウス操作のときだけ、documentレベルでドラッグを追跡する
+      if (!('touches' in e)) {
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+      }
+    }
+
+    function handleMove(e) {
+      if (startPosY == null) return;
+      const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      el.scrollTop = startScrollTop + (startPosY - y);
+      touchLastMoveTime = performance.now();
+    }
+
+    function handleEnd(e) {
+      if (startPosY == null) return;
+      e.preventDefault();
+
+      // マウス操作の場合、documentに登録していたリスナーを解除する
+      if (!('touches' in e)) {
+        document.removeEventListener('mousemove', handleMove);
+        document.removeEventListener('mouseup', handleEnd);
+      }
+
+      const endTime = performance.now();
+      // 最後の移動から間が空きすぎていたら慣性スクロールせずその場で確定
+      if ((endTime - touchLastMoveTime) > 50) {
+        startPosY = null;
+        finishScroll();
+        return;
+      }
+      const elapsed = endTime - touchStartTime || 1;
+      const distance = el.scrollTop - startScrollTop;
+      startPosY = null;
+      cancelInertia = inertiaScroll(el, (20 * distance) / elapsed, finishScroll);
+    }
+
+    el.addEventListener('touchstart', handleStart, { passive: false });
+    el.addEventListener('touchmove', handleMove, { passive: false });
+    el.addEventListener('touchend', handleEnd, { passive: false });
+    el.addEventListener('mousedown', handleStart);
+
+    // タップで直接選択(ドラッグと区別するため移動量5px以内のみタップ扱い)
+    el.addEventListener('pointerdown', (e) => { downPos = { x: e.clientX, y: e.clientY }; });
+    el.addEventListener('pointerup', (e) => {
+      if (!downPos) return;
+      const dx = downPos.x - e.clientX;
+      const dy = downPos.y - e.clientY;
+      downPos = null;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) return;
+      const target = e.target.closest('.wheel-item:not(.wheel-spacer)');
+      if (!target) return;
+      const items = Array.from(el.querySelectorAll('.wheel-item:not(.wheel-spacer)'));
+      const idx = items.indexOf(target);
+      if (idx === -1 || !values[idx]) return;
+      setTimeout(() => {
+        scrollToIndex(el, idx, true);
+        onSelect(values[idx].value);
+      });
+    });
+
+    return {
+      setValues(newValues, selectedValue) {
+        values = newValues;
+        el.innerHTML = '';
+        for (let i = 0; i < PADDING_COUNT; i++) {
+          const spacer = document.createElement('div');
+          spacer.className = 'wheel-item wheel-spacer';
+          el.appendChild(spacer);
+        }
+        values.forEach(v => {
+          const item = document.createElement('div');
+          item.className = 'wheel-item';
+          item.textContent = v.label;
+          el.appendChild(item);
+        });
+        for (let i = 0; i < PADDING_COUNT; i++) {
+          const spacer = document.createElement('div');
+          spacer.className = 'wheel-item wheel-spacer';
+          el.appendChild(spacer);
+        }
+        const idx = Math.max(0, values.findIndex(v => v.value === selectedValue));
+        scrollToIndex(el, idx, false);
+      }
+    };
+  }
+
+  const modalEl = document.getElementById('DatePickerModal');
+
+  let currentYear = new Date().getFullYear();
+  let currentMonth = new Date().getMonth() + 1;
+  let currentDay = new Date().getDate();
+  let activeInput = null;
+
+  // 年・月が変わったときは「日」だけ作り直す(操作中の列は触らない)
+  function renderDays() {
+    const dCount = daysInMonth(currentYear, currentMonth);
+    if (currentDay > dCount) currentDay = dCount;
+    const days = Array.from({ length: dCount }, (_, i) => ({ value: i + 1, label: `${i + 1}日` }));
+    dayCol.setValues(days, currentDay);
+  }
+
+  const yearCol  = setupWheelColumn(document.getElementById('wheel-year'),  (v) => { currentYear = v;  renderDays(); });
+  const monthCol = setupWheelColumn(document.getElementById('wheel-month'), (v) => { currentMonth = v; renderDays(); });
+  const dayCol   = setupWheelColumn(document.getElementById('wheel-day'),   (v) => { currentDay = v; });
+
+  // モーダルを開いたときに3列すべてを描画する
+  function renderAll() {
+    const thisYear = new Date().getFullYear();
+    const years = Array.from({ length: 50 }, (_, i) => {
+      const y = thisYear - 35 + i;
+      return { value: y, label: `${y}年` };
+    });
+    const months = Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: `${i + 1}月` }));
+
+    yearCol.setValues(years, currentYear);
+    monthCol.setValues(months, currentMonth);
+    renderDays();
+  }
+
+  // ★重要: 描画は「モーダルが完全に表示された後」に行う
+  // (display:none の間は scrollTop の設定が無視されるため)
+  modalEl.addEventListener('shown.bs.modal', renderAll);
+
+  ['start_date', 'end_date'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('click', () => {
+      activeInput = input;
+      if (input.value) {
+        const [y, m, d] = input.value.split('-').map(Number);
+        currentYear = y; currentMonth = m; currentDay = d;
+      } else {
+        const now = new Date();
+        currentYear = now.getFullYear();
+        currentMonth = now.getMonth() + 1;
+        currentDay = now.getDate();
+      }
+      // renderAll() はここでは呼ばない(shown.bs.modal で実行される)
+      bootstrap.Modal.getOrCreateInstance(modalEl).show();
+    });
+  });
+
+  document.getElementById('confirmDateBtn').addEventListener('click', () => {
+    if (!activeInput) return;
+    const mm = String(currentMonth).padStart(2, '0');
+    const dd = String(currentDay).padStart(2, '0');
+    activeInput.value = `${currentYear}-${mm}-${dd}`;
+    bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+  });
+})();
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const btnShowPresets = document.getElementById('presetimage'); 
     const btnBackToMenu = document.getElementById('btn-back-to-menu');
     const menuView = document.getElementById('modal-menu-view');
     const presetView = document.getElementById('modal-preset-view');
 
-    // 「アプリ内の画像から選択（id="presetimage"）」ボタンが押されたとき
+    // 「アプリ内の画像から選択」ボタンが押されたとき
     if (btnShowPresets) {
         btnShowPresets.addEventListener('click', function() {
-            menuView.style.display = 'none';   // メニュー画面を消す
-            presetView.style.display = 'block'; // 画像一覧画面を出す
+            menuView.style.display = 'none';
+            presetView.style.display = 'block';
         });
     }
 
     // 「戻る」ボタンが押されたとき
     if (btnBackToMenu) {
         btnBackToMenu.addEventListener('click', function() {
-            presetView.style.display = 'none';  // 画像一覧画面を消す
-            menuView.style.display = 'block';   // メニュー画面を出す
+            presetView.style.display = 'none';
+            menuView.style.display = 'block';
         });
     }
 
-    // モーダルを閉じたときに表示を最初に戻す設定
+    // モーダルを閉じたときに表示を最初に戻す
     const myModal = document.getElementById('BackImageModal');
     if (myModal) {
         myModal.addEventListener('hidden.bs.modal', function () {
@@ -148,108 +401,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 1. 共通の「プレビューを表示してモーダルを閉じる」命令を作る
-function updatePreview(url) {
+// プレビューを表示してモーダルを閉じる
+function updatePreview(url, presetId) {
     const previewImg = document.getElementById('current-bg-thumbnail');
     const previewContainer = document.getElementById('selected-preview');
 
     if (previewImg) previewImg.src = url;
     if (previewContainer) previewContainer.style.display = 'block';
-    
-    // 背景にも反映
-    //document.body.style.backgroundImage = `url('${url}')`;
 
-    // モーダルを閉じる
-    const modal = bootstrap.Modal.getInstance(document.getElementById('BackImageModal'));
-    if (modal) modal.hide();
+    document.getElementById('selected_preset_id').value = presetId || '';
+
+    const modalEl = document.getElementById('BackImageModal');
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.hide();
 }
 
-// 2. アプリ内画像をクリックしたとき
+// アプリ内画像をクリックしたとき
 document.querySelectorAll('.preset-option').forEach(img => {
-    img.addEventListener('click', () => updatePreview(img.src));
+    img.addEventListener('click', () => updatePreview(img.src, img.dataset.id));
 });
 
-// 3. 【カメラロール】から選んだとき
+// 端末からファイルを選んだとき
 document.getElementById('user-image').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = (event) => updatePreview(event.target.result);
+        reader.onload = (event) => updatePreview(event.target.result, '');
         reader.readAsDataURL(file);
     }
-});*\
-
-
-//　画像を生成するとき
-/*const generateBtn =
-document.getElementById(' generate ');
-
-    const canvas = document.getElementById('live-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // 1. 選択されている値を取得
-    const fontSelector = document.querySelector('select[name="font"]');
-    const colorSelector = document.querySelector('select[name="color"]');
-    const selectedFont = fontSelector.value;
-    const selectedColorName = colorSelector.value;
-
-    // 2. カラーコード変換（セレクトボックスの日本語に対応）
-    const colorMap = {
-        "黒": "#000000",
-        "白": "#ffffff",
-        "グレー": "#c0c0c0",
-        "赤": "#ff0000",
-        "ピンク": "#ff00ff",
-        "黄": "#ffff00",
-        "緑": "#00ff00",
-        "青": "#0000ff",
-    };
-    const colorCode = colorMap[selectedColorName] || "#ffffff";
-
-    // 3. Webフォントのロードを待つ (これが重要！)
-    try {
-        await document.fonts.load(`1em "${selectedFont}"`);
-    } catch (e) {
-        console.log("Font load error:", e);
-    }
-
-    // 4. 背景画像を描画
-    const bgImage = new Image();
-    bgImage.src = document.getElementById('preview').src; 
-
-    bgImage.onload = function() {
-        canvas.width = bgImage.width;
-        canvas.height = bgImage.height;
-        ctx.drawImage(bgImage, 0, 0);
-
-        // 5. テキストの設定
-        ctx.fillStyle = colorCode;
-        ctx.font = `40px "${selectedFont}"`; // Webフォントを指定
-        ctx.textBaseline = "top";
-
-        // 6. ライブ情報の書き込み
-        let y = 150; 
-        const x = 50;
-        
-        let livedatetext, artisttext, eventtext
-
-        // Djangoから渡された record_list をループ
-        {% for record in record_list %}
-            livedatetext = "{{ record.live_date|date:'n/j' }}"; // 4/28 の形式
-            artisttext = "[{{ record.artist_id.name }}]";
-            eventtext = "{{ record.event_name|default:'' }}";
-            
-            ctx.fillText(`${livedatetext} ${artisttext} ${eventtext}`, x, y);
-            y += 60; // 行間
-        {% endfor %}
-
-        // 7. 生成結果を表示
-        const dataURL = canvas.toDataURL('image/png');
-        document.getElementById('final-image').src = dataURL;
-    };
 });
-}*\
 
 </script>
--->
+
 {% endblock %}
