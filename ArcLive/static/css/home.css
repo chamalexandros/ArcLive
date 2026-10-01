@@ -1,0 +1,248 @@
+.flex-box1 {
+  margin: 5px;
+}
+
+.flex-item2 {
+  margin: auto;
+}
+
+.home-label {
+  margin: 0;
+  padding: 0;
+  color: #000000;
+}
+
+.span {
+  font-size: 5px;
+}
+
+#font {
+  width: 240px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+#color {
+  width: 240px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.btn-dark {
+  background-color: #474747;
+  border-color: #474747;
+  color: #ffffff;
+}
+.btn-primary {
+  background-color: #1dc1d6;
+  border-color: #1dc1d6;
+  color: #ffffff;
+}
+.modal-omote {
+  background-color: #d6801d;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 240px;
+  text-decoration: none;
+  border: #cf7d02;
+  border-bottom: solid 4px #cf7d02;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+.modal-content {
+  background-color: #d6761d9c;
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+}
+
+#modal-title {
+  text-align: center;
+}
+.modal-header {
+  display: block;
+  align-items: center;
+  margin-top: 5px;
+  padding: 0.2rem 0.2rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+  text-align: center;
+}
+
+.btn-outline-dark {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.btn-outline-primary {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(.3rem - 1px);
+}
+.modal-header2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+}
+.img {
+    font-size: 12px;
+    width: 300px;
+}
+#selected-preview {
+    width: 300px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#generate {
+  text-align: center;
+  font-size: 20px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #33d61d;/*ボタン色*/
+  color: #FFF;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 3px;
+}
+
+.flex-box4 {
+  display: inline-block;
+  width: 300px;
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.date-label {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+#start_date,#end_date {
+  width: 110px;
+  min-width: 0;      /* flexコンテナ内で縮まれるようにする */
+  text-align: center;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.kara {
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+.modal-date-title {
+  color: #6d6c6c;
+}
+.modal-date-content {
+  background-color: #ffffff;
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  pointer-events: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#DatePickerModal .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#DatePickerModal .modal-header .btn-close {
+  position: absolute;
+  right: 10px;
+}
+#DatePickerModal .modal-content {
+  flex-direction: column;
+}
+#DatePickerModal .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#DatePickerModal .modal-header .btn-close {
+  position: absolute;
+  right: 10px;
+}
+
+.modal-dialog {
+  max-width: 300px;
+}
+
+.wheel-picker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 180px;
+  overflow: hidden;
+}
+.wheel-column {
+  height: 180px;
+  width: 33%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-align: center;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  touch-action: none;   /* 自前でタッチスクロールを制御するため、ブラウザ標準のスクロールを無効化 */
+  cursor: grab;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+.wheel-column::-webkit-scrollbar { display: none; }
+.wheel-item {
+  height: 36px;
+  line-height: 36px;
+  font-size: 18px;
+  color: #6d6c6c;
+  user-select: none;
+  white-space: nowrap;
+}
+.wheel-spacer { visibility: hidden; }
+.wheel-highlight {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  height: 36px;
+  border-top: 1px solid #6d6c6c;
+  border-bottom: 1px solid #6d6c6c;
+  pointer-events: none;
+}
