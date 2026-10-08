@@ -1,0 +1,89 @@
+#result_canvas {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+}
+
+#result_canvas.is-hidden {
+    display: none;
+}
+
+#plain_text_view {
+    white-space: pre-wrap;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+#plain_text_view.is-hidden {
+    display: none;
+}
+
+#zoom_controls {
+    margin-top: 10px;
+}
+
+.is-hidden {
+    display: none;
+}
+
+#copy_message {
+    display: none;
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.share-area {
+    margin-top: 10px;
+}
+
+.btn-success,
+.btn-dark,
+.btn-outline-danger.w-100,
+#copy_text_btn.btn.btn-outline-primary {
+    display: block;
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 200px;          
+    min-width: 200px;          
+    margin: 10px auto 0;
+    padding: 5px 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;       
+    border-radius: 3px;
+    color: #FFF !important;
+}
+
+/* ===== 色だけ個別 ===== */
+.btn-success,
+#copy_text_btn.btn.btn-outline-primary {
+    background: #33d61d;
+    border: #33d61d;
+    border-bottom: solid 4px #17aa3c;
+}
+
+.btn-dark {
+    background: #000000;
+    border: #000000;
+    border-bottom: solid 4px #000000;
+}
+
+.btn-outline-danger.w-100 {
+    background: #d61d1d;
+    border: #d61d1d;
+    border-bottom: solid 4px #aa1717;
+}
+#cancel {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 0;
+}
