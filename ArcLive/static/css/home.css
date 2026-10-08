@@ -38,27 +38,24 @@
   color: #ffffff;
 }
 .btn-primary {
-  background-color: #1dc1d6;
-  border-color: #1dc1d6;
+  background-color: #474747;
+  border-color: #474747;
   color: #ffffff;
 }
 .modal-omote {
-  background-color: #d6801d;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #111111;
   text-align: center;
   font-size: 16px;
   display: inline-block;
-  padding: 5px 10px;
   width: 240px;
   text-decoration: none;
-  border: #cf7d02;
-  border-bottom: solid 4px #cf7d02;
-  border-radius: 8px;
+  border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 3px;
 }
 .modal-content {
-  background-color: #d6761d9c;
+  background-color: #0000009c;
   color: #ffffff;
   text-align: center;
   display: flex;
@@ -245,4 +242,60 @@
   border-top: 1px solid #6d6c6c;
   border-bottom: 1px solid #6d6c6c;
   pointer-events: none;
+}
+
+.form-card {
+  background-color: #fff;        /* 白の塗りつぶし */
+  padding: 24px 32px;            /* 枠の内側の余白 */
+  border-radius: 12px;           /* 角を丸く(不要なら削除) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 影(任意) */
+  margin: 24px auto;             /* 中央寄せ */
+  text-align: center;
+  width: 270px;
+}
+
+.flex-box4 {
+  display: flex;
+  margin-left: 30px;
+}
+
+.btn-cancel-image {
+  display: block;
+  margin: 15px auto 0;
+  text-align: center;
+  font-size: 16px;
+  padding: .375rem .75rem;
+  width: 100%;
+  text-decoration: none;
+  background: #d61d1d;
+  color: #FFF;
+  border: none;
+  border-bottom: solid 4px #aa1717;
+  border-radius: .25rem;
+  cursor: pointer;
+}
+
+#BackImageModal .modal-footer {
+  border-top: none;
+  justify-content: center;
+}
+
+.btn-previous {
+  color: #ffffff;
+  background-color: #1d1d1d;
+
+}
+
+#selected-preview {
+  width: 100%;          
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#current-bg-thumbnail {
+  display: block;
+  margin: 0 auto;
 }
