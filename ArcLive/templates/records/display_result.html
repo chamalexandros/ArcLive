@@ -1,57 +1,54 @@
 {% extends "base/base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/display_result.css' %}">
+{% endblock %}
 {% block main %}
 
 <!-- 背景画像がある時だけ表示するCanvas -->
 <canvas id="result_canvas" width="800" height="1200" 
-        style="width:100%; max-width:400px; border:1px solid #ccc; {% if not background_url %}display:none;{% endif %}">
+        class="{% if not background_url %}is-hidden{% endif %}">
 </canvas>
 
 <!-- 背景画像がない時だけ表示するシンプルなテキスト一覧 -->
-<div id="plain_text_view" style="
-    white-space: pre-wrap; 
-    padding: 16px; 
-    border: 1px solid #ccc; 
-    border-radius: 12px; 
-    background-color: #ffffff; 
-    font-size: 16px;
-    {% if background_url %}display:none;{% endif %}
-">{% for record in record_list %}{{ record.live_date|date:'Y/m/d' }}　{% for ar in record.artist_records.all %}{{ ar.artist_id.name }}{% if not forloop.last %}, {% endif %}{% endfor %}　{{ record.event_name }}
+<div id="plain_text_view" class="{% if background_url %}is-hidden{% endif %}">{% for record in record_list %}{{ record.live_date|date:'Y/m/d' }}　{% for ar in record.artist_records.all %}{{ ar.artist_id.name }}{% if not forloop.last %}, {% endif %}{% endfor %}　{{ record.event_name }}
 {% endfor %}</div>
 
 <!-- 拡大縮小ボタン:背景画像がある時だけ表示 -->
-<div class="flex-box4" id="zoom_controls" style="margin-top:10px; {% if not background_url %}display:none;{% endif %}">
+<div class="flex-box4 {% if not background_url %}is-hidden{% endif %}" id="zoom_controls" style="display:none;">
     <button type="button" id="zoom_out_btn" class="btn btn-outline-dark">－</button>
     <button type="button" id="zoom_in_btn" class="btn btn-outline-dark">＋</button>
 </div>
 
+
 <!-- 画像ダウンロード:背景画像がある時だけ表示 -->
-<div class="flex-box4" id="download_area" style="{% if not background_url %}display:none;{% endif %}">
-    <button type="button" id="download_btn" class="btn btn-success w-100">画像をダウンロード</button>
+<div class="flex-box4 {% if not background_url %}is-hidden{% endif %}" id="download_area">
+    <button type="button" id="download_btn" class="btn btn-success w-100">カメラロールに保存</button>
 </div>
 
-<div class="flex-box4" id="share_x_image_area" style="{% if not background_url %}display:none;{% endif %}">
+<div class="flex-box4 share-area {% if not background_url %}is-hidden{% endif %}" id="share_x_image_area">
     <button type="button" id="share_x_image_btn" class="btn btn-dark w-100">Xで共有</button>
 </div>
 
 <!-- テキストコピー:背景画像がない時だけ表示 -->
-<div class="flex-box4" id="copy_text_area" style="{% if background_url %}display:none;{% endif %}">
+<div class="flex-box4 {% if background_url %}is-hidden{% endif %}" id="copy_text_area">
     <button type="button" id="copy_text_btn" class="btn btn-outline-primary w-100">テキストをコピー</button>
+    <p id="copy_message">コピーしました！</p>
 </div>
 
-<div class="flex-box4" id="share_x_text_area" style="{% if background_url %}display:none;{% endif %}">
+
+<div class="flex-box4 share-area {% if background_url %}is-hidden{% endif %}" id="share_x_text_area">
     <button type="button" id="share_x_text_btn" class="btn btn-dark w-100">Xで共有</button>
 </div>
 
-<p id="copy_message" style="display:none; color: green; text-align:center;">コピーしました！</p>
-
+<div class="flex-box4 share-area" id="cancel">
+    <a href="{% url 'records:home' %}" class="btn btn-outline-danger w-100">削除する</a>
+</div>
 
 
 <script>
 const backgroundUrl = "{{ background_url|escapejs }}";
 
-// ===================================================
-// 背景画像がない場合:ここで処理を止める(装飾機能は一切動かさない)
-// ===================================================
 if (!backgroundUrl) {
 
     const recordsDataPlain = [
@@ -104,7 +101,7 @@ if (!backgroundUrl) {
         }
         document.body.removeChild(textarea);
     }
-    // --- Xで共有(テキストのみ) ---
+
     document.getElementById('share_x_text_btn').addEventListener('click', function() {
         const text = buildCopyText() + '\n\n#ArcLive';
         const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
@@ -112,9 +109,6 @@ if (!backgroundUrl) {
     });
 }
 
-// ===================================================
-// 背景画像がある場合:ここから下、Canvas関連の処理をすべて実行
-// ===================================================
 else {
 
     const canvas = document.getElementById('result_canvas');
@@ -343,39 +337,37 @@ else {
         link.click();
     });
 
-
-    // --- Xで共有(画像あり) ---
-    document.getElementById('share_x_image_btn').addEventListener('click', async function() {
+    document.getElementById('share_x_image_btn').addEventListener('click', function() {
         const shareText = recordsData.map(function(record) {
-            return `${record.date}　${record.artist}　${record.event}`;
-        }).join('\n')+ '\n\n#ArcLive';
+            return `${record.date}　${record.artists}　${record.event}`;
+        }).join('\n') + '\n\n#ArcLive';
 
-        // Canvasの内容をBlob(ファイルデータ)に変換
+        // スマホ判定
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         canvas.toBlob(async function(blob) {
             const file = new File([blob], 'my_record.png', { type: 'image/png' });
 
-            // スマホなどでWeb Share APIが使え、かつファイル共有に対応している場合
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            // スマホ：共有ダイアログ（Xアプリを選べる）
+            if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
                 try {
-                    await navigator.share({
-                        files: [file],
-                        text: shareText,
-                    });
+                    await navigator.share({ files: [file], text: shareText });
                 } catch (err) {
-                    // ユーザーがキャンセルした場合などは何もしない
+                    // キャンセル時は何もしない
                 }
-            } else {
-                // 対応していない場合(主にパソコン):画像をダウンロードし、Xの投稿画面をテキストのみで開く
-                const link = document.createElement('a');
-                link.download = 'my_record.png';
-                link.href = URL.createObjectURL(blob);
-                link.click();
-
-                alert('画像をダウンロードしました。X投稿画面が開くので、画像を手動で添付してください。');
-
-                const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
-                window.open(url, '_blank');
+                return;
             }
+
+            // PC：画像をダウンロードして、X投稿画面を開く
+            const link = document.createElement('a');
+            link.download = 'my_record.png';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+
+            alert('画像をダウンロードしました。X投稿画面が開くので、画像を手動で添付してください。');
+
+            const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
+            window.open(url, '_blank');
         }, 'image/png');
     });
 }
