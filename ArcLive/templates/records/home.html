@@ -21,128 +21,129 @@
     </div>
 </div>
 
-<form method="POST" action="{% url 'records:generate' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="flex-box1">
-        <div id="date1" class="flex-datebox">
-            <div style="display:inline-flex">
-                <label class="date-label">
-                    <input name="start_date" id="start_date" type="text" readonly placeholder="年/月/日"/>
-                    <span class="kara">~</span>
-                    <input name="end_date" id="end_date" type="text" readonly placeholder="年/月/日"/>
-                </label>
+<div class="form-card">
+    <form method="POST" action="{% url 'records:generate' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="flex-box1">
+            <div id="date1" class="flex-datebox">
+                <div style="display:inline-flex">
+                    <label class="date-label">
+                        <input name="start_date" id="start_date" type="text" readonly placeholder="年/月/日"/>
+                        <span class="kara">~</span>
+                        <input name="end_date" id="end_date" type="text" readonly placeholder="年/月/日"/>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 日付選択モーダル(ホイール式) -->
-    <div class="modal fade" id="DatePickerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-date-content">
-                <div class="modal-header">
-                    <h5 class="modal-date-title">日付を選択</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="wheel-picker">
-                        <div class="wheel-column" id="wheel-year"></div>
-                        <div class="wheel-column" id="wheel-month"></div>
-                        <div class="wheel-column" id="wheel-day"></div>
-                        <div class="wheel-highlight"></div>
+        <!-- 日付選択モーダル(ホイール式) -->
+        <div class="modal fade" id="DatePickerModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-date-content">
+                    <div class="modal-header">
+                        <h5 class="modal-date-title">日付を選択</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="wheel-picker">
+                            <div class="wheel-column" id="wheel-year"></div>
+                            <div class="wheel-column" id="wheel-month"></div>
+                            <div class="wheel-column" id="wheel-day"></div>
+                            <div class="wheel-highlight"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-100" id="confirmDateBtn">決定</button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex-box1">
+            <select name="color" id="color" size=1>
+                <option value="色を選択">色を選択</option>
+                <option value="black">黒</option>
+                <option value="gray">グレー</option>
+                <option value="white">白</option>
+                <option value="red">赤</option>
+                <option value="pink">ピンク</option>
+                <option value="yellow">黄</option>
+                <option value="green">緑</option>
+                <option value="blue">青</option>
+            </select>
+        </div>
+
+        <div class="flex-box1">
+            <select name="font" id="font" size=1>
+                <option value="フォント選択">フォントを選択</option>
+                <option value="hiragino">ヒラギノ角ゴシック</option>
+                <option value="Noto Sans">Noto Sans</option>
+                <option value="Noto Serif">Noto Serif</option>
+                <option value="M Plus 1p">M Plus 1p</option>
+                <option value="Oswald">Oswald</option>
+                <option value="Roboto">Roboto</option>
+            </select>
+        </div>
+
+
+    <!-- モーダルウィンドウの内容 -->
+        <div class="flex-box1">
+            <button type="button" class="modal-omote" data-bs-toggle="modal" data-bs-target="#BackImageModal">
+            背景画像を選択
+            </button>
+        </div>
+
+    <!-- Modal -->
+        <div class="modal fade" id="BackImageModal" tabindex="-1" aria-labelledby="BackImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm: 200px">
+            <div class="modal-content">
+
+            <div id="modal-menu-view">
+                <div class="modal-header">
+                <h5 class="modal-title" id="BackImageModalLabel">背景画像を選択</h5>
+                </div>
+                <div class="modal-body">
+                <div class="mb-4">
+                    <label for="user-image" class="btn btn-dark w-100 py-2 mb-2">端末から選択</label>
+                    <input type="file"; class="d-none"; accept="image/*"; id="user-image"; name="user-image" >
+                </div>
+                    <button type="button" class="btn btn-primary w-100" id="presetimage">アプリ内の画像から選択</button>
+                </div>
+        
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary w-100" id="confirmDateBtn">決定</button>
+                <button type="button" class="btn-cancel-image" data-bs-dismiss="modal">キャンセル</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="flex-box1">
-        <select name="color" id="color" size=1>
-            <option value="色を選択">色を選択</option>
-            <option value="black">黒</option>
-            <option value="gray">グレー</option>
-            <option value="white">白</option>
-            <option value="red">赤</option>
-            <option value="pink">ピンク</option>
-            <option value="yellow">黄</option>
-            <option value="green">緑</option>
-            <option value="blue">青</option>
-        </select>
-    </div>
-
-    <div class="flex-box1">
-        <select name="font" id="font" size=1>
-            <option value="フォント選択">フォントを選択</option>
-            <option value="hiragino">ヒラギノ角ゴシック</option>
-            <option value="Noto Sans">Noto Sans</option>
-            <option value="Noto Serif">Noto Serif</option>
-            <option value="M Plus 1p">M Plus 1p</option>
-            <option value="Oswald">Oswald</option>
-            <option value="Roboto">Roboto</option>
-        </select>
-    </div>
 
 
-<!-- モーダルウィンドウの内容 -->
-    <div class="flex-box1">
-        <button type="button" class="modal-omote" data-bs-toggle="modal" data-bs-target="#BackImageModal">
-        背景画像を選択
-        </button>
-    </div>
-
-<!-- Modal -->
-    <div class="modal fade" id="BackImageModal" tabindex="-1" aria-labelledby="BackImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm: 200px">
-        <div class="modal-content">
-
-        <div id="modal-menu-view">
-            <div class="modal-header">
-            <h5 class="modal-title" id="BackImageModalLabel">背景画像を選択</h5>
+                <div id="modal-preset-view" style="display:none;">
+                <div class="modal-header2">
+                    <button type="button" class="btn-previous" data-bs-dismiss="modal">戻る</button>
+                    <h5 class="modal-title">アプリ内画像から選択</h5>
+                    <div></div>
+                </div>    
+                <div class="d-flex flex-wrap gap-2" id="preset-image-list" >
+                    {% for img_obj in presetimage %}
+                    <img src="{{ img_obj.preset_image_url.url }}" 
+                    class="preset-option"
+                    data-id="{{ img_obj.id }}"
+                    style="width:calc(50% - 5px);aspect-ratio:1/1; object-fit:cover; cursor:pointer;">
+                    {% endfor %}
+                </div>
             </div>
-            <div class="modal-body">
-            <div class="mb-4">
-                <label for="user-image" class="btn btn-dark w-100 py-2 mb-2">端末から選択</label>
-                <input type="file"; class="d-none"; accept="image/*"; id="user-image"; name="user-image" >
-            </div>
-                <button type="button" class="btn btn-primary w-100" id="presetimage">アプリ内の画像から選択</button>
-            </div>
-    
-            <div class="modal-footer">
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-        </div>
-
-
-            <div id="modal-preset-view" style="display:none;">
-            <div class="modal-header2">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                <h5 class="modal-title">アプリ内画像から選択</h5>
-                <div></div>
-            </div>    
-            <div class="d-flex flex-wrap gap-2" id="preset-image-list" >
-                {% for img_obj in presetimage %}
-                <img src="{{ img_obj.preset_image_url.url }}" 
-                class="preset-option"
-                data-id="{{ img_obj.id }}"
-                style="width:calc(50% - 5px);aspect-ratio:1/1; object-fit:cover; cursor:pointer;">
-                {% endfor %}
             </div>
         </div>
         </div>
-    </div>
-    </div>
-    <div id="selected-preview" style="display:none;">
-        <img id="current-bg-thumbnail" src="" style="width:50px;" name="current-bg-thumbnail">
-    </div>
+        <div class="flex-4" id="selected-preview" style="display:none;">
+            <img id="current-bg-thumbnail" src="" style="width:50px;" name="current-bg-thumbnail">
+        </div>
 
-    <div class="flex-box4">
-        <button type="submit" name="generate_btn" value="1" id="generate">生成</button>
-        <canvas id="live_canvas" style="display:none;"></canvas>
-    </div>
-    <input type="hidden" name="selected_preset_id" id="selected_preset_id" value="">
-</form>
-
+        <div class="flex-box4">
+            <button type="submit" name="generate_btn" value="1" id="generate">生成</button>
+            <canvas id="live_canvas" style="display:none;"></canvas>
+        </div>
+        <input type="hidden" name="selected_preset_id" id="selected_preset_id" value="">
+    </form>
+</div>
 
 <script>
 
