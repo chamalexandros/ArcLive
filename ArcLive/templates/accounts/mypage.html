@@ -1,32 +1,34 @@
 {% extends "base/base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/mypage.css">
+{% endblock %}
 {% block main %}
-    <h4>マイページ<h4>
+<h4>マイページ<h4>
+    <div class="flex-box1">
         {% if messages %}
-            {% for messages in messages %}
-                <div style="color; #4b4b4b; padding: 10px; margin_bottom: 20px; ">
-                    {{ messages }}
+            {% for message in messages %}
+                {{ message }}
             {% endfor %}
         {% endif %}
 
-        <div style="margin: 20px 0; ">
-            <label>メールアドレス</label>
-            <br>
-            <input type="text" value="{{ user.email }}" readonly>
-            <button type="submit"><a href="{% url 'accounts:change_email'%}">変更</a></button>
+        <div class="flex-box3">
+            <label class="email_form">Email</label>
+            <input type="text" value="{{ user.email }}" readonly id="my_email">
+            <button type="submit" class="change-botton"><a href="{% url 'accounts:change_email'%}">変更</a></button>
+        <div>
+        
+        <div class="flex-box3">
+            <label class="password_form">パスワード</label>
+            <input type="password" value="********" readonly id="my_ps">
+            <button type="submit" class="change-botton"><a href="{% url 'accounts:change_password'%}">変更</a></button>
         </div>
 
-        <div style="margin: 20px 0; ">
-            <label>パスワード</label>
-            <br>
-            <input type="password" value="********" readonly>
-            <button type="submit"><a href="{% url 'accounts:change_password'%}">変更</a></button>
+        <div class="flex-box">
+            <form action="{% url 'accounts:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="logout-botton">ログアウト</button>
+            </form>
         </div>
-
-    <form action="{% url 'accounts:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit",
-        style="color:#ffffff; border: none; padding: 10px 20px; border-radius:5px">
-            ログアウト</button>
-    </form>
-
+    </div>
 {% endblock %}
