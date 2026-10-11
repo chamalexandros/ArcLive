@@ -1,17 +1,24 @@
 {% extends "base/arclive_base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/login.css">
+{% endblock %}
 {% block body %}
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <button type="submit">ログイン</button>
-</form>
-<div style="margin-top: 20px; font-size:0.9em;">
-    <p>
-        <a href="{% url 'accounts:signup' %}">アカウント登録</a>
-    </p>
-    <p>
-        <a href="{% url 'accounts:password_reset_form' %}">パスワードを忘れた方はこちら</a>
-    </p>
+<div class="login-box">
+    <form method="post">
+        {% csrf_token %}
+        <div class="login-top">
+            {{ form.as_p}}
+        </div>
+        <button type="submit" id="login">ログイン</button>
+    </form>
+    <div style="margin-top: 20px; font-size:0.9em; color: #ffffff">
+        <p>
+            <a href="{% url 'accounts:signup' %}">アカウント登録</a>
+        </p>
+        <p>
+            <a href="{% url 'accounts:password_reset_form' %}">パスワードを忘れた方はこちら</a>
+        </p>
+    </div>
 </div>
 {% endblock %}
