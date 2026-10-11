@@ -23,7 +23,7 @@ class MypageView(LoginRequiredMixin, View):
         return render(request, 'accounts/mypage.html')
     
     
-class ChangeEmailView(LoginRequiredMixin, View):
+class MyChangeEmailView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'accounts/change_email.html', {"user": request.user})
     
@@ -37,16 +37,15 @@ class ChangeEmailView(LoginRequiredMixin, View):
         return redirect ('accounts:mypage')
     
 
-class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+class MyPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/change_password.html"
     success_url = reverse_lazy("accounts:mypage")
     
-    #パスワード変更後にメッセージを表示
     def form_valid(self, form):
+        print("ffff")
         messages.success(self.request, 'パスワードを変更しました')
         return super().form_valid(form)
-
-        
+    success_url = reverse_lazy("accounts:mypage")
 
 class PasswordReset(PasswordResetView):
     """パスワード変更用URLの送付ページ"""
@@ -72,8 +71,8 @@ class PasswordResetComplete(PasswordResetCompleteView):
     
 
 mypage = MypageView.as_view()
-change_email = ChangeEmailView.as_view()
-change_password = PasswordChangeView.as_view()
+change_email = MyChangeEmailView.as_view()
+change_password = MyPasswordChangeView.as_view()
 signup = SignupView.as_view()
 password_reset = PasswordReset.as_view()
 password_reset_done = PasswordResetDone.as_view()
