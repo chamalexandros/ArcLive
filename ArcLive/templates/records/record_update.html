@@ -1,15 +1,127 @@
 {% extends "base/base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/record_update.css">
+{% endblock %}
 {% block main %}
-
+<div class="flex-box">
 <h4>編集画面</h4>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p><h5>公演日</h5>{{ form.record_form.live_date }}</p>
-            <p><h5>アーティスト名</h5>{{ form.artist_form.name }}</p>
-            <p><h5>イベント名</h5>{{ form.record_form.event_name }}</p>
-            <p><h5>会場名</h5>{{ form.venue_form.name }}</p>
-            <p><h5>画像</h5>{{ form.record_form.live_image }}</p>
-            <p><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">編集する</a></p>
-            <p><a href="{% url 'records:record_delete' record.id %}" class="button-style" role="button">削除する</a></p>
-        </form>
+</div>
+
+    <form method="POST" class="edit-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+            <strong>入力内容にエラーがあります</strong>
+            {{ form.errors }}
+        {% endif %}
+
+        <div class="edit-form">
+            <label for="edit-date" class="edit-date">公演日</label>
+                {{ form.live_date }}  
+        </div>
+
+        <div class="edit-form2">
+            <label for="edit-title" class="edit-title">アーティスト名</label>
+            {{ artist_formset.management_form }}
+            <div class="artist-list" id="artist-list">
+                {% for a_form in artist_formset %}
+                    <div class="artist-item">
+                        {{ a_form.artist_name}}
+
+                        {# Djangoが処理するために必要な隠し要素 #}
+                        <div class="is-hidden" style="display:none;">
+                            {# 既存データを削除する際にチェックを入れる用 #}
+                            {{ a_form.DELETE }}
+                            {% for hidden in a_form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                        </div>
+                        {# --- ここが「＋追加」を押した時にコピーされる「ひな形」 --- #}
+                        <div class="empty-form" id="empty-form" style="display:none;">
+                            <div class="artist-item">
+                                {{ artist_formset.empty_form.artist_name }}
+                                <div style="display:none;">
+                                    {{ artist_formset.empty_form.DELETE }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-btn" class="add-btn">＋</button>
+            <button type="button" id="remove-btn" class="remove-btn">ー</button>
+        </div>
+
+        <div class="edit-form">
+            <label for="edit-title" class="edit-title">公演名</label>
+                {{ form.event_name }}  
+        </div>
+        
+        <div class="edit-form">
+            <label for="edit-title" class="edit-title">会場名</label>
+                {{ venue_form.name }}  
+        </div>
+
+        <div class="edit-form">
+            <label for="edit-img" class="edit-img">画像</label>
+                {{ form.live_image }}
+        </div>
+    </form>
+
+        <div class="flex-box">
+            <button type="submit" id="delete"><a href="{% url 'records:record_delete' record.id %}" class="button-style" role="button">削除</a></button>
+        </div>
+        <div class="flex-box">
+            <button type="submit" id="edit"><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">更新</a></button>
+        </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('add-btn');
+    const removeBtn = document.getElementById('remove-btn');
+    const artistList = document.getElementById('artist-list');
+    const emptyForm = document.getElementById('empty-form');
+    const getTotalFormsInput = () => document.querySelector('input[name$="-TOTAL_FORMS"]');
+
+    // --- 追加処理 ---
+    if (addBtn) {
+        addBtn.addEventListener('click', function() {
+            const totalInput = getTotalFormsInput();
+            const currentCount = parseInt(totalInput.value);
+            const newFormHtml = emptyForm.innerHTML.replace(/__prefix__/g, currentCount);
+            
+            const newDiv = document.createElement('div');
+            newDiv.innerHTML = newFormHtml;
+            artistList.appendChild(newDiv.firstElementChild);
+            
+            totalInput.value = currentCount + 1;
+        });
+    }
+
+    // --- 削除処理 ---
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+            // 表示されている（display: none 以外の）artist-itemを取得
+            const items = Array.from(artistList.querySelectorAll('.artist-item')).filter(item => {
+                return item.style.display !== 'none';
+            });
+            const totalInput = getTotalFormsInput();
+
+            if (items.length > 1) {
+                const lastItem = items[items.length - 1];
+                const deleteCheckbox = lastItem.querySelector('input[name$="-DELETE"]');
+
+                // 既存データ（最初からあったもの）かどうか判定
+                if (deleteCheckbox && lastItem.querySelector('input[name*="initial"]')) {
+                    deleteCheckbox.checked = true;
+                    lastItem.style.display = 'none';
+                } else {
+                    // 新しく追加した行なら物理的に削除
+                    lastItem.remove();
+                    totalInput.value = parseInt(totalInput.value) - 1;
+                }
+            }
+        });
+    }
+});
+</script>
 {% endblock %}
