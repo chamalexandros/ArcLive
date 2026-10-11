@@ -1,0 +1,13 @@
+h4 {
+    text-align: center;
+}
+
+h6 {
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+
+.ps_reset_form input#id_email.form-control {
+    width:280px
+}
