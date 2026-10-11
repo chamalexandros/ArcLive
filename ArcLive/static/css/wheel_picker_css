@@ -1,0 +1,11 @@
+#DatePickerModal .modal-dialog { max-width: 300px; }
+#DatePickerModal .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#DatePickerModal .modal-header .btn-close {
+  position: absolute;
+  right: 10px;
+}
