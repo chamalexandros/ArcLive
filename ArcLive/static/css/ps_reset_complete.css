@@ -1,0 +1,10 @@
+p {
+    text-align: center;
+}
+
+a.return {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}
