@@ -1,0 +1,60 @@
+/* リセットCSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.create-form {
+    width: 320px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.create-form2 {
+    width: 320px;
+    font-size: 16px;
+    margin-top: 5px;    
+    display: flex;
+}
+
+.artist-list {
+    justify-content: space-around;
+    flex-direction: column;
+    padding-block: 1px;
+    padding-inline: 2px;
+    width:145px;
+    gap:5px;
+}
+.artist-item {
+    display: flex;
+    gap:3px;
+}
+
+input[type="text" i] {
+    padding-inline-start: 1px;
+    cursor: default;
+    padding: 0px;
+    width: 150px;
+}
+
+input[type="date" i] {
+    padding-inline-start: 1px;
+    cursor: default;
+    padding: 0px;
+    width:150px;
+}
+
+input[type="file" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+    width: 160px;
+    font-size: 10px;
+}
+
+label {
+    display: inline-block;
+    width: 120px;
+    vertical-align: top;
+}
