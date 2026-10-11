@@ -1,0 +1,23 @@
+
+.signup {
+    font-size: 14px;
+    text-align: left;
+    margin-left: 25px;
+}
+
+
+
+.signup input#id_email {
+    margin-left: 18px;
+} 
+
+.signup ul {
+    font-size: 10px;
+    display: block;
+    text-align: left;
+}
+
+#id_password2_helptext{
+    font-size: 12px;
+    text-align: right;
+}
