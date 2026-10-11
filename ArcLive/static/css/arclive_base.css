@@ -1,56 +1,349 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   1. リセットCSS
+   ========================================================================== */
 html {
-    font-size: 62.5%
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* ==========================================================================
+   2. ページ全体のレイアウト(中央寄せの土台)
+   ========================================================================== */
 body {
-    background-color: #c8e4fd;
-    text-aline: center;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #9bbcf3;
 }
 
-header {
-    color: #4b4b4b
-    font-family: "cursive";
-    font-weight: bold;
-    text-aline: left;
+.viewport {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }
 
-footer {
-    background-color: #ffffff
-
+/* main:中身を横方向中央に集める + フッター分の余白を確保 */
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 120px; /* フッターの高さより少し大きめの数値 */
 }
 
-/* ラジオボタンの○を消す */
-.sample-form input[type="radio"] {
-/*    display: none;*/
+/* main直下の子要素は基準幅を100%にしておく
+   (align-items:centerによるshrink-to-fit対策) */
+main > * {
+  width: 100%;
+  box-sizing: border-box;
 }
-/* 画像の周りに隙間をあける */
-.sample-form label img {
-    margin: 3px;
-    padding: 5px;
+
+/* ==========================================================================
+   3. 見出し
+   ========================================================================== */
+main h3 {
+  font-family: cursive;
+  width: 50%;
+  font-size: clamp(24px, 5vw, 40px);
+  margin-top: 1vh;
+  text-align: center;
 }
-/* 未選択の場合、色を薄くする */
-.sample-form input[type="radio"] + label img {
-    opacity:0.5;
+
+@media screen and (min-width: 992px) {
+  main h3 {
+    font-size: 40px;
+    width: auto;
   }
-/* 選択済みの場合、色を濃くする */
-.sample-form input[type="radio"]:checked + label img {
-    opacity:1;
 }
 
-/* 未選択の場合、色を薄くする */
-.sample-form input[type="radio"] + label img {
-    opacity:0.5;
+@media screen and (max-width: 375px) {
+  main h3 {
+    font-size: clamp(20px, 4vh, 32px);
+    width: 70%;
   }
-/* 選択済みの場合、色を濃くする */
-.sample-form input[type="radio"]:checked + label img {
-    opacity:1;
 }
 
-.flexbox {
-    display: flex
-    justify-content: space_around;
+/* ログイン画面などのロゴ見出し */
+h1 {
+  font-family: cursive;
+  font-size: clamp(32px, 8vh, 64px);
+  margin-top: 15vh;
+  margin-bottom: 5vh;
+  text-align: center;
 }
 
-.flex-item {
-    background: #ffffff
-    width:50%
+h4 {
+  font-size: clamp(18px, 3vh, 28px);
+  margin-top: 3vh;
+}
+
+h5 {
+  font-size: clamp(16px, 3vh, 24px);
+}
+
+/* ==========================================================================
+   4. リンク
+   ========================================================================== */
+a {
+  color: #000000;
+}
+
+a.return {
+  text-align: center;
+}
+
+/* PCでは画面いっぱいに広げず中央に固定幅で表示 */
+@media screen and (min-width: 992px) {
+  .footermenu {
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+/* ==========================================================================
+   6. レイアウト用ボックス(フォームなどを囲む箱)
+   ========================================================================== */
+
+/* デフォルト(スマホ縦向け) */
+.flex-box,
+.flex-box1,
+.flex-datebox,
+form,
+select {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* タブレット以上(768px〜) */
+@media screen and (min-width: 768px) {
+  .flex-box,
+  .flex-box1,
+  .flex-datebox,
+  form,
+  select {
+    max-width: 400px;
+  }
+}
+
+/* PC(992px〜) */
+@media screen and (min-width: 992px) {
+  .flex-box,
+  .flex-box1,
+  .flex-datebox,
+  form,
+  select {
+    max-width: 480px;
+  }
+}
+
+.flex-box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  margin: 5px auto;
+}
+
+.flex-box1 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.flex-box4 {
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .flex-box4 {
+    max-width: 400px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .flex-box4 {
+    max-width: 480px;
+  }
+}
+
+.share-area {
+  margin-top: 10px;
+}
+
+.flex-datebox {
+  display: flex;
+  justify-content: center;
+  margin: 5px auto;
+}
+
+/* flex: ［flex-growの値］ ［flex-shrinkの値］ ［flex-basisの値］; */
+.flex-item1 {
+  flex: 1 1 auto;
+}
+
+.flex-item2 {
+  width: clamp(70px, 20vw, 90px); /* 画面幅に応じて70〜90pxの範囲で可変 */
+  aspect-ratio: 1 / 1;
+  padding: 10px;
+  margin: 20px 0;
+  color: #000000;
+  background: #e4fcff; /* 背景色 */
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32); /* 影 */
+}
+
+/* ==========================================================================
+   7. リスト
+   ========================================================================== */
+main ul {
+  list-style: none;
+  padding: 0;
+  width: 80%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+main li {
+  width: 100%; /* 常にulの100% = 上下で必ず同じ幅になる */
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+main li a img {
+  width: 100px;
+  height: 100px;
+  max-height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+main li a p {
+  margin: 0;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 575px) {
+  main li {
+    padding: 10px 16px;
+    border-radius: 8px;
+  }
+
+  main li h4 {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  main li a p {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  main ul {
+    width: 92%;
+  }
+
+  main li {
+    padding: 8px 12px;
+  }
+
+  .flex-item2 {
+    width: 80px;
+  }
+}
+
+/* ==========================================================================
+   8. フォーム部品
+   ========================================================================== */
+form {
+  display: block;
+  margin-top: 0;
+  unicode-bidi: isolate;
+}
+
+
+
+@media screen and (max-width: 375px) {
+  #start-date1,
+  #end-date1 {
+    width: 90px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   9. ボタン共通スタイル
+   ========================================================================== */
+
+/* 登録・送信ボタン(緑) */
+#registration,
+.send {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #33d61d;
+  color: #fff;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* キャンセルボタン(赤・単体のa/buttonに直接IDが付くケース) */
+#cancel {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #d61d1d;
+  color: #fff;
+  border: #d61d1d;
+  border-bottom: solid 4px #aa1717;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
