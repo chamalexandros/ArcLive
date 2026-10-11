@@ -1,0 +1,34 @@
+.change {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #33d61d;/*ボタン色*/
+  color: #FFF;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+li {
+    font-size: x-small;
+    text-align: left;
+}
+
+.helptext {
+    font-size: x-small;
+    text-align: center;
+}
+
+.flex-mypage {
+    text-align: center;
+}
