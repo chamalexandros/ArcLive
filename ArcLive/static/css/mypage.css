@@ -1,0 +1,71 @@
+h4 {
+    margin-left: 10px;
+}
+
+.flex-box3 {
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+}
+
+.flex-mypage {
+    font-size: 13px;
+    flex: center;
+    width: 300px;
+}
+
+
+
+.change-botton {
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    width: 50px;
+    text-decoration: none;
+    background: #e4e2e2;
+    color: #FFF;
+    border: #b9b9b9;
+    border-bottom: solid 3px #8a8989;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+input[type="text" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+    width: 160px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+input[type="password" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+    width: 145px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.logout-botton {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #d61d1d;/*ボタン色*/
+  color: #FFF;
+  border: #d61d1d;
+  border-bottom: solid 4px #aa1717;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
