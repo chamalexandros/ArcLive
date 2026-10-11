@@ -1,37 +1,61 @@
-{% extends "base/base.html" %} 
+{% extends "base/base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/record_list.css">
+{% endblock %}
+
 {% block main %}
 <h4>参戦記録一覧<h4>
-<form method="GET" action="{% url 'records:record_list' %}" class="search-form-2">
-    <label>
-        <input type="date" name="start_date" value="{{request.GET.start_date }}">
-        <h6>~<h6>
-        <input type="date" name="end_date" value="{{request.GET.end_date}}">
-    </label>
-    <button type="submit" aria-label="検索">検索</button>
-</form>
+    <ul>
+        <li>
+            <div id="date1" class="flex-datebox">
+                <div style="display:inline-flex">
+                    <form method="GET" action="">
+                        <label class="date-label">
+                            <input name="start-date1" id="start-date1" type="date"/>
+                            <span class="kara">~</span>
+                            <input name="end-date1" id="end-date1" type="date"/>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="flex-box">
+                <button type="submit" id="search">検索</button>
+            </div>
+        </li>
+    <ul>
 
 {% if searched %}
 
     <p>({{ record_list.count }}件)</p>
+
 <ul>
     {% for record in record_list %}
-        <li>
-            <a href="{% url 'records:record_update' record.id %}">
-                <p>{{record.live_date}}</p>
-                <p>{% for ar in record.artist_records.all %}
-                    {{ ar.artist_id.name}}
-                {% endfor %}
-                </p>
-                <p>{{record.event_name}}</p> 
-                <p>{{record.venue_id.name}}</p>
-            </a>
+    <li>
+        <a href="{% url 'records:record_detail' record.id %}" >
+            
+            <!-- ★左側:画像(登録があればそれ、なければ代わりの画像) -->
+            <div style="flex-shrink: 0;">
+                {% if record.live_image %}
+                    <img src="{{ record.live_image.url }}" alt="{{ record.event_name }}" >
+                {% else %}
+                    <img src="{{ MEDIA_URL }}record/live.jpg" alt="未設定" >
+                {% endif %}
+            </div>
 
-            {% if  record.live_image %}
-                <div class="record.live_image">
-                    <img src="{{ record.live_image.url }}" alt="record.live_image" style="width:20px;">
-                </div>
-            {% endif %}
-        </li>
+            <!-- ★右側:文字情報 -->
+            <div>
+                <p>{{ record.live_date }}</p>
+                <p>{% for ar in record.artist_records.all %}{{ ar.artist_id.name }}{% if not forloop.last %}, 
+                    {% endif %}{% endfor %}</p>
+                <p>{{ record.event_name }}</p>
+                {% if record.venue_id %}
+                <p>{{ record.venue_id.name }}</p>
+                {% endif %}
+            </div>
+        </a>
+    </li>
+
     {% empty %}
         <div>参戦記録が1つもありません</div>
     {% endfor %}
@@ -48,5 +72,4 @@
     {% endfor %}
 </ul>
 {% endif %}
-
 {% endblock %}
