@@ -4,49 +4,44 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <title>ArcLive&#127928;</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/base.css">
+        {% block extra_css %} {% endblock %}
 
     </head>
     <!-- 以下が画面に表示される-->
     <body>
-        <div class="viewport">
-        <main>
-            <h3>ArcLive&#127928;<h3>
+        <main class="container-fluid px-3">
+            <h3>ArcLive&#127928;</h3>
     
             {% block main %}
             {% endblock %}
         </main>
 
         <footer>
-            <div class="footer-box">
-                <div class="flex-item1">
-                    <a href="{% url 'records:home'%}">
-                        <img src="/media/footer/home2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item1">
-                    <a href="{% url 'records:record_create'%}">
-                        <img src="/media/footer/onnpu2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item1">
-                    <a href="{% url 'records:record_list'%}">
-                        <img src="/media/footer/list2.jpg">
-                    </a>
-                </div>
-                <div class="flex-item1">
-                    <a href="{% url 'accounts:mypage'%}">
-                        <img src="/media/footer/account2.jpg">
-                    </a>
-                </div>
+            <div class="footermenu">
+                <a href="{% url 'records:home'%}">
+                    <span class="icon">🏠️</span>
+                </a>
+                
+                <a href="{% url 'records:record_create'%}">
+                    <span class="icon">🎵</span>
+                </a>
+            
+                <a href="{% url 'records:record_list'%}">
+                    <span class="icon">📋️</span>
+                </a>
+            
+                <a href="{% url 'accounts:mypage'%}">
+                    <span class="icon">👤</span>
+                </a>
             </div>        
         </footer>
-            {% bootstrap_javascript %}
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     </body>
 </html>
