@@ -1,0 +1,77 @@
+/* リセットCSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.edit-form {
+    width: 320px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+input[type="text" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+    width:150px;
+}
+
+input[type="date" i] {
+    padding-inline-start: 1px;
+    cursor: default;
+    padding: 0px;
+    width:150px;
+}
+
+input[type="file" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+    width: 160px;
+    font-size: 10px;
+}
+
+label {
+    display: inline-block;
+    width: 120px;
+    vertical-align: top;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+#edit {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #33d61d;/*ボタン色*/
+  color: #FFF;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#delete {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #d61d1d;/*ボタン色*/
+  color: #FFF;
+  border: #d61d1d;
+  border-bottom: solid 4px #aa1717;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
