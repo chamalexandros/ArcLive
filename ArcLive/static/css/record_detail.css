@@ -1,0 +1,59 @@
+/* リセットCSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.record_detail {
+    width: 300px;
+    text-align: left;
+    margin: 0 20px;
+    font-size: 14px;
+}
+
+
+img {
+    width: 290px;
+}
+
+.edit {
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    padding: 5px 10px;
+    width: 50%;
+    text-decoration: none;
+    background: #33d61d;
+    color: #FFF;
+    border: #33d61d;
+    border-bottom: solid 4px #17aa3c;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.return {
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    padding: 5px 10px;
+    width: 50%;
+    text-decoration: none;
+    background: #7066c9;/*ボタン色*/
+    color: #FFF;
+    border: #7066c9;
+    border-bottom: solid 4px #655cb6;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.flex-box {
+    justify-content: center;
+}
