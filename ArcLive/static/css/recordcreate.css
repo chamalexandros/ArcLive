@@ -5,17 +5,10 @@
     box-sizing: border-box;
 }
 
-
-.create-form {
-    width: 320px;
-    font-size: 16px;
-    margin-top: 5px;
-}
-
 .create-form2 {
-    width: 320px;
+    width: 300px;
     font-size: 16px;
-    margin-top: 5px;    
+    margin: 5px 0 0 6px;    
     display: flex;
 }
 
@@ -55,6 +48,45 @@ input[type="file" i] {
 
 label {
     display: inline-block;
-    width: 120px;
+    width: 90px;
     vertical-align: top;
+}
+
+.circle-btn1 {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.circle-btn1:hover {
+  background: #000000;
+  color: #fff;
+}
+
+.form-card2 {
+  background-color: #fff;        /* 白の塗りつぶし */
+  padding: 14px 16px;            /* 枠の内側の余白 */
+  border-radius: 12px;           /* 角を丸く(不要なら削除) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 影(任意) */
+  margin: 24px auto;             /* 中央寄せ */
+  text-align: center;
+  width: 300px;
+}
+
+.create-form {
+  width: 255px;
+  max-width: 320px;
+  margin: 5px auto 0;    /* 左右 auto で中央寄せ */
 }
