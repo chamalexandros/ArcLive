@@ -1,11 +1,101 @@
-#DatePickerModal .modal-dialog { max-width: 300px; }
+
+
+/* ===== 日付ピッカーモーダル ===== */
+#DatePickerModal .modal-dialog {
+  max-width: 300px;
+}
+
+#DatePickerModal .modal-date-content {
+  background-color: #ffffff;
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  pointer-events: auto;
+}
+
+#DatePickerModal .modal-date-title {
+  color: #6d6c6c;
+}
+
 #DatePickerModal .modal-header {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  padding: 0.2rem 0.2rem;
+  margin-top: 5px;
+  border-bottom: 1px solid #dee2e6;
 }
+
 #DatePickerModal .modal-header .btn-close {
   position: absolute;
   right: 10px;
+}
+
+#DatePickerModal .modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: .75rem;
+  border-top: 1px solid #dee2e6;
+}
+
+#DatePickerModal .btn-primary {
+  background-color: #474747;
+  border-color: #474747;
+  color: #ffffff;
+}
+
+/* ===== ホイール本体 ===== */
+.wheel-picker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 180px;
+  overflow: hidden;
+}
+
+.wheel-column {
+  height: 180px;
+  width: 33%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-align: center;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  touch-action: none;
+  cursor: grab;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+
+.wheel-column::-webkit-scrollbar {
+  display: none;
+}
+
+.wheel-item {
+  height: 36px;
+  line-height: 36px;
+  font-size: 18px;
+  color: #6d6c6c;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.wheel-spacer {
+  visibility: hidden;
+}
+
+.wheel-highlight {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  height: 36px;
+  border-top: 1px solid #6d6c6c;
+  border-bottom: 1px solid #6d6c6c;
+  pointer-events: none;
 }
