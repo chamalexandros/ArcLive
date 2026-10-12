@@ -2,6 +2,8 @@
 {% load static %}
 {% block extra_css %}
     <link rel="stylesheet" href="/static/css/recordcreate.css">
+    {# ★追加: ホイールピッカー用CSS #}
+    <link rel="stylesheet" href="{% static 'css/wheel-picker.css' %}">
 {% endblock %}
 {% block main %}
 
@@ -18,7 +20,7 @@
         {% endif %}
 
         <div class="create-form">
-            <label for="create-date" class="create-date">公演日</label>
+            <label for="id_create_date" class="create-date">公演日</label>
                 {{ form.live_date }}  
         </div>
 
@@ -83,6 +85,14 @@
         </div>
 
     </form>
+
+
+{# ★追加: 日付ピッカーのモーダル(formの外に置く) #}
+{% include "records/wheel_picker_modal.html" %}
+
+{# ★追加: モーダルHTMLより後に読み込む #}
+<script src="{% static 'js/wheel-picker.js' %}"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('add-btn');
