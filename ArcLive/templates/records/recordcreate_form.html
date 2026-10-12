@@ -3,7 +3,7 @@
 {% block extra_css %}
     <link rel="stylesheet" href="/static/css/recordcreate.css">
     {# ★追加: ホイールピッカー用CSS #}
-    <link rel="stylesheet" href="{% static 'css/wheel-picker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wheel_picker.css' %}">
 {% endblock %}
 {% block main %}
 
@@ -91,7 +91,7 @@
 {% include "records/wheel_picker_modal.html" %}
 
 {# ★追加: モーダルHTMLより後に読み込む #}
-<script src="{% static 'js/wheel-picker.js' %}"></script>
+<script src="{% static 'js/wheel_picker.js' %}"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
