@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/wheel_picker.css' %}">
 {% endblock %}
 {% block main %}
+<div class="form-card2">
 
     <div class="flex-box">
         <h4>参戦記録の新規登録</h4>
@@ -55,8 +56,8 @@
                 </div>
             </div>
             <div class= btn-fix>
-                <button type="button" id="add-btn" class="add-btn">＋</button>
-                <button type="button" id="remove-btn" class="remove-btn">ー</button>
+                <button type="button" id="add-btn" class="circle-btn1">＋</button>
+                <!--<button type="button" id="remove-btn" class="circle-btn2">ー</button>--> 
             </div>
         </div>
 
@@ -85,7 +86,7 @@
         </div>
 
     </form>
-
+</div>
 
 {# ★追加: 日付ピッカーのモーダル(formの外に置く) #}
 {% include "records/wheel_picker_modal.html" %}
