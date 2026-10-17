@@ -28,14 +28,14 @@
             <div id="date1" class="flex-datebox">
                 <div style="display:inline-flex">
                     <label class="date-label">
-                        <input name="start_date" id="start_date" type="text" readonly placeholder="年/月/日"/>
+                        <input name="start_date" id="start_date" type="text" readonly data-date-picker placeholder="年/月/日"/>
                         <span class="kara">~</span>
-                        <input name="end_date" id="end_date" type="text" readonly placeholder="年/月/日"/>
+                        <input name="end_date" id="end_date" type="text" readonly data-date-picker placeholder="年/月/日"/>
                     </label>
                 </div>
             </div>
         </div>
-        <!-- 日付選択モーダル(ホイール式) -->
+        <!-- 日付選択モーダル(ホイール式) 
         <div class="modal fade" id="DatePickerModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-date-content">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="flex-box1">
             <select name="color" id="color" size=1>
@@ -147,6 +147,7 @@
 
 <script>
 
+/*
 (function () {
   const ITEM_HEIGHT = 36;
   const PADDING_COUNT = 2;
@@ -155,7 +156,6 @@
     return new Date(year, month, 0).getDate();
   }
 
-  /** 慣性スクロール(速度を毎フレーム減衰させながらscrollTopを動かす) */
   function inertiaScroll(el, initialSpeed, onFinish) {
     let speed = initialSpeed;
     let frameId;
@@ -178,11 +178,6 @@
     else el.scrollTop = top;
   }
 
-  /**
-   * 1カラム分のホイールピッカーをセットアップする(イベント登録は1度だけ)
-   * onSelect(value) は値が確定した時に呼ばれる
-   * 戻り値の setValues(values, selectedValue) で表示項目を更新する
-   */
   function setupWheelColumn(el, onSelect) {
     let values = [];
     let startPosY = null, startScrollTop = null;
@@ -198,7 +193,6 @@
       if (values[clamped]) onSelect(values[clamped].value);
     }
 
-    // マウスホイール操作
     el.addEventListener('wheel', (e) => {
       e.preventDefault();
       if (cancelInertia) { cancelInertia(); cancelInertia = null; }
@@ -207,7 +201,6 @@
       wheelTimer = setTimeout(finishScroll, 100);
     }, { passive: false });
 
-    // タッチ/マウスドラッグ開始・移動・終了
     function handleStart(e) {
       e.preventDefault();
       if (cancelInertia) { cancelInertia(); cancelInertia = null; }
@@ -216,7 +209,7 @@
       startScrollTop = el.scrollTop;
       touchStartTime = performance.now();
       touchLastMoveTime = touchStartTime;
-      // マウス操作のときだけ、documentレベルでドラッグを追跡する
+
       if (!('touches' in e)) {
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('mouseup', handleEnd);
@@ -234,14 +227,13 @@
       if (startPosY == null) return;
       e.preventDefault();
 
-      // マウス操作の場合、documentに登録していたリスナーを解除する
       if (!('touches' in e)) {
         document.removeEventListener('mousemove', handleMove);
         document.removeEventListener('mouseup', handleEnd);
       }
 
       const endTime = performance.now();
-      // 最後の移動から間が空きすぎていたら慣性スクロールせずその場で確定
+
       if ((endTime - touchLastMoveTime) > 50) {
         startPosY = null;
         finishScroll();
@@ -258,7 +250,7 @@
     el.addEventListener('touchend', handleEnd, { passive: false });
     el.addEventListener('mousedown', handleStart);
 
-    // タップで直接選択(ドラッグと区別するため移動量5px以内のみタップ扱い)
+
     el.addEventListener('pointerdown', (e) => { downPos = { x: e.clientX, y: e.clientY }; });
     el.addEventListener('pointerup', (e) => {
       if (!downPos) return;
@@ -310,7 +302,6 @@
   let currentDay = new Date().getDate();
   let activeInput = null;
 
-  // 年・月が変わったときは「日」だけ作り直す(操作中の列は触らない)
   function renderDays() {
     const dCount = daysInMonth(currentYear, currentMonth);
     if (currentDay > dCount) currentDay = dCount;
@@ -322,7 +313,7 @@
   const monthCol = setupWheelColumn(document.getElementById('wheel-month'), (v) => { currentMonth = v; renderDays(); });
   const dayCol   = setupWheelColumn(document.getElementById('wheel-day'),   (v) => { currentDay = v; });
 
-  // モーダルを開いたときに3列すべてを描画する
+
   function renderAll() {
     const thisYear = new Date().getFullYear();
     const years = Array.from({ length: 50 }, (_, i) => {
@@ -336,8 +327,7 @@
     renderDays();
   }
 
-  // ★重要: 描画は「モーダルが完全に表示された後」に行う
-  // (display:none の間は scrollTop の設定が無視されるため)
+
   modalEl.addEventListener('shown.bs.modal', renderAll);
 
   ['start_date', 'end_date'].forEach(id => {
@@ -354,7 +344,7 @@
         currentMonth = now.getMonth() + 1;
         currentDay = now.getDate();
       }
-      // renderAll() はここでは呼ばない(shown.bs.modal で実行される)
+
       bootstrap.Modal.getOrCreateInstance(modalEl).show();
     });
   });
@@ -367,6 +357,8 @@
     bootstrap.Modal.getOrCreateInstance(modalEl).hide();
   });
 })();
+
+*\
 
 
 
