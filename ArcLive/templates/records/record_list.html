@@ -12,18 +12,18 @@
                 <div style="display:inline-flex">
                     <form method="GET" action="">
                         <label class="date-label">
-                            <input name="start-date1" id="start-date1" type="date"/>
+                            <input name="start-date1" id="start-date1" type="text" data-date-picker placeholder="年/月/日" autocomplete="off"/>
                             <span class="kara">~</span>
-                            <input name="end-date1" id="end-date1" type="date"/>
+                            <input name="end-date1" id="end-date1" type="text" data-date-picker placeholder="年/月/日" autocomplete="off"/>
                         </label>
+                        <div class="flex-box">
+                            <button type="submit" id="search">検索</button>
+                        </div>
                     </form>
                 </div>
             </div>
-            <div class="flex-box">
-                <button type="submit" id="search">検索</button>
-            </div>
         </li>
-    <ul>
+    </ul>
 
 {% if searched %}
 
@@ -72,4 +72,6 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+
 {% endblock %}
