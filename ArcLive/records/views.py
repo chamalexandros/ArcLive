@@ -174,36 +174,46 @@ class RecordCreateView(LoginRequiredMixin, View):
 class RecordListView(LoginRequiredMixin, View):
     template_name = 'records/record_list.html'
     model = Record
-    context_object_name = 'record_list' #デフォルトがobject_listなので名前を変えない場合は本来これは記載しなくてもいい
+    context_object_name = 'record_list' 
     
     #指定期間による検索
     def get(self, request, *args, **kwargs):
-        date_min = self.request.GET.get('start_date')
-        date_max = self.request.GET.get('end_date')
+        date_min = self.request.GET.get('start-date1')
+        date_max = self.request.GET.get('end-date1')
 
         record_list = Record.objects.all()
-    
-        if date_min and date_max:
-            record_list = Record.objects.filter(live_date__range=[date_min, date_max]).order_by('live_date') #両方入力
-            print(record_list)
+
+        if date_min:
+            record_list = record_list.filter(live_date__gte=date_min)
+        if date_max:
+            record_list = record_list.filter(live_date__lte=date_max)
+
+        record_list = record_list.prefetch_related('artist_records__artist_id')  # ここで全パターンに適用
+
+        
+        # if date_min and date_max:
+        #     record_list = Record.objects.filter(live_date__range=[date_min, date_max]).order_by('live_date') #両方入力
+        #     print(record_list)
             
-        elif date_min:
-            record_list = Record.objects.filter(live_date__gte=date_min).order_by('live_date') #開始日以降の全て
-            print(record_list)
+        # elif date_min:
+        #     record_list = Record.objects.filter(live_date__gte=date_min).order_by('live_date') #開始日以降の全て
+        #     print(record_list)
             
-        elif date_max:
-            record_list = Record.objects.filter(live_date__lte=date_max).order_by('live_date')#終了日以前の全て
-            print(record_list)
-        else:
-            record_list = Record.objects.all() #全て
-            print(record_list)
+        # elif date_max:
+        #     record_list = Record.objects.filter(live_date__lte=date_max).order_by('live_date')#終了日以前の全て
+        #     print(record_list)
+        # else:
+        #     record_list = Record.objects.all() #全て
+        #     print(record_list)
             
-            record_list = record_list.prefetch_related('artist_records__artist_id')
-            
-        context = {
-            "record_list":record_list.order_by('-live_date'),
-            "searched" : True
-            }
+        #     record_list = record_list.prefetch_related('artist_records__artist_id')
+        
+        
+     
+        # context = {
+        #     "record_list":record_list.order_by('-live_date'),
+        #     "searched" : True
+        #     }
 
 
     #検索結果からアーティストごとの参戦記録をカウント(本数が多い順に表示)
