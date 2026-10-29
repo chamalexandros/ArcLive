@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<h4>参戦記録一覧<h4>
+<h4>参戦記録一覧</h4>
     <ul>
         <li>
             <div id="date1" class="flex-datebox">
@@ -16,6 +16,9 @@
                             <span class="kara">~</span>
                             <input name="end-date1" id="end-date1" type="text" data-date-picker placeholder="年/月/日" autocomplete="off"/>
                         </label>
+                        <div>
+                            <input type="text" name="keyword" id="keyword" value="{{ keyword }}" placeholder="アーティスト名・イベント名・会場名">
+                        </div>
                         <div class="flex-box">
                             <button type="submit" id="search">検索</button>
                         </div>
@@ -27,7 +30,7 @@
 
 {% if searched %}
 
-    <p>({{ record_list.count }}件)</p>
+    <p class="count">({{ record_list.count }}件)</p>
 
 <ul>
     {% for record in record_list %}
@@ -61,7 +64,7 @@
     {% endfor %}
 </ul>
 
-<h4>アーティスト別<h4>
+<h4>アーティスト別</h4>
 <ul>
     {% for item in artist_summary %}
         <li>
