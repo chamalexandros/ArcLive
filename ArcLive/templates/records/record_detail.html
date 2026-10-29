@@ -7,16 +7,18 @@
 <div class="flex-box">
     <h4>詳細画面</h4>
 </div>
-<div class="flex-box1">
-    <div class="record_detail">
-        <p><strong>公演日</strong>:{{ record.live_date|date:"Y年n月j日" }}</p>
-        <p><strong>アーティスト名</strong>:
-            {% for ar in record.artist_records.all %}
-                {{ ar.artist_id.name }}{% if not forloop.last %}、{% endif %}
-            {% endfor %}
-        </p>
-        <p><strong>公演名</strong>:{{ record.event_name }}</p>
-        <p><strong>会場名</strong>:{{ record.venue_id.name }}</p>
+<div class="form-card2">
+    <div class="flex-box1">
+        <div class="record_detail">
+            <p><strong>公演日</strong>:{{ record.live_date|date:"Y年n月j日" }}</p>
+            <p><strong>アーティスト名</strong>:
+                {% for ar in record.artist_records.all %}
+                    {{ ar.artist_id.name }}{% if not forloop.last %}、{% endif %}
+                {% endfor %}
+            </p>
+            <p><strong>公演名</strong>:{{ record.event_name }}</p>
+            <p><strong>会場名</strong>:{{ record.venue_id.name }}</p>
+        </div>
     </div>
 </div>
     
