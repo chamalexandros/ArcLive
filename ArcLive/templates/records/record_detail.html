@@ -7,26 +7,19 @@
 <div class="flex-box">
     <h4>詳細画面</h4>
 </div>
-
 <div class="flex-box1">
     <div class="record_detail">
-        <p class="date">公演日:{{ object.live_date }}</p>
-        <p class="artist_name">アーティスト名:  
+        <p><strong>公演日</strong>:{{ record.live_date|date:"Y年n月j日" }}</p>
+        <p><strong>アーティスト名</strong>:
             {% for ar in record.artist_records.all %}
-                {{ ar.artist_id.name}}
+                {{ ar.artist_id.name }}{% if not forloop.last %}、{% endif %}
             {% endfor %}
         </p>
-        {% if object.event_name %}
-            <p class="event_name">公演名:{{ object.event_name }}</p>
-        {% endif %}
-        {% if object.venue_id.name %}
-            <p class="venue_id__name">会場名:{{ object.venue_id.name }}</p>
-        {% endif %}
-        {% if object.live_image %}
-            <img src="{{ object.live_image.url }}">
-        {% endif %}
+        <p><strong>公演名</strong>:{{ record.event_name }}</p>
+        <p><strong>会場名</strong>:{{ record.venue_id.name }}</p>
     </div>
 </div>
+    
 
 <div class="flex-box">
     <button type="submit" class="edit" ><a href="{% url 'records:record_update' record.pk %}">編集</a></button><p>
