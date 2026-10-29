@@ -13,6 +13,7 @@ from accounts.models import Preset_Image
 from django.utils import timezone
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.db.models import Q, Count
 
 
 
@@ -180,6 +181,7 @@ class RecordListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         date_min = self.request.GET.get('start-date1')
         date_max = self.request.GET.get('end-date1')
+        keyword = request.GET.get('keyword', '').strip()
 
         record_list = Record.objects.all()
 
@@ -187,6 +189,17 @@ class RecordListView(LoginRequiredMixin, View):
             record_list = record_list.filter(live_date__gte=date_min)
         if date_max:
             record_list = record_list.filter(live_date__lte=date_max)
+            
+        # キーワード検索(スペース区切りで複数入力 → すべての語を含むものに絞り込み)
+        for word in keyword.split():
+            record_list = record_list.filter(
+                Q(event_name__icontains=word)
+                | Q(venue_id__name__icontains=word)
+                | Q(artist_records__artist_id__name__icontains=word)
+            )
+
+        # 多対多的な結合で重複行が出るのを防ぐ
+        record_list = record_list.distinct()
 
         record_list = record_list.prefetch_related('artist_records__artist_id')  # ここで全パターンに適用
 
@@ -222,7 +235,8 @@ class RecordListView(LoginRequiredMixin, View):
         context = {
             "record_list":record_list.order_by('-live_date'),
             "artist_summary": artist_summary,
-            "searched" : True
+            "searched" : True,  
+            "keyword" : keyword,
             }
         
         return render(
