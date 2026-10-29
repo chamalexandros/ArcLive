@@ -1,10 +1,43 @@
-/* background-color: #9bbcf3 */
 @charset "UTF-8";
-/* リセットCSS */
+/* background-color: #9bbcf3 */
+
+/* ========================================
+   リセット・全体設定
+======================================== */
 html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box
+  box-sizing: border-box;
+  /* ★ スクロールバーの有無でレイアウトがずれないように領域を常に確保 */
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: #9bbcf3;
+  justify-content: center;
+}
+
+a {
+  color: #000000;
+}
+
+a.return {
+  text-align: center;
+}
+
+/* ========================================
+   見出し
+======================================== */
+h1 {
+  font-family: cursive;
+  width: 75%;
+  font-size: 8vh;
+  margin-top: 15vh;
+  margin-bottom: 5vh;
+  margin-left: 15vw;
+  margin-right: 10vw;
+  text-align: center;
 }
 
 main h3 {
@@ -14,25 +47,29 @@ main h3 {
   margin-top: 1vh;
 }
 
-@media screen and (min-width: 992px) {
-  main h3 {
-    font-size: 40px;
-    width: auto;
-  }
-}
-
 h4 {
   font-size: 3vh;
   margin-top: 3vh;
 }
+
 h5 {
   font-size: 2.5vh;
 }
 
+/* ========================================
+   レイアウト
+======================================== */
 .viewport {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+main {
+  padding-bottom: 120px; /* 固定フッターに隠れないための余白 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 子要素を横方向中央に */
 }
 
 /* デフォルト(スマホ縦向け) */
@@ -45,63 +82,15 @@ select {
   max-width: 300px;
 }
 
-/* タブレット以上(768px〜) */
-@media screen and (min-width: 768px) {
-  .flex-box,
-  .flex-box1,
-  .flex-datebox,
-  form,
-  select {
-    max-width: 400px;
-  }
-}
-
-/* PC(992px〜) */
-@media screen and (min-width: 992px) {
-  .flex-box,
-  .flex-box1,
-  .flex-datebox,
-  form,
-  select {
-    max-width: 480px;
-  }
-}
-
-body{
-  background-color:#9bbcf3;
-  justify-content: center;
-}
-main {
-  padding-bottom: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* ← 子要素を横方向中央に */
-}
-
-
-@media screen and (min-width: 992px) {
-  .footermenu {
-    max-width: 600px;   /* PCでは画面いっぱいに広げず中央に固定幅で */
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 12px 12px 0 0;
-  }
-}
-
 .flex-box {
   display: flex;
-  width: 100%;
-  max-width: 300px;
   text-align: center;
   justify-content: center;
   margin: 5px auto;
 }
 
-
 .flex-box1 {
   display: flex;
-  width: 100%;
-  max-width: 300px;
   text-align: center;
   flex-direction: column;
   align-items: center;
@@ -109,23 +98,20 @@ main {
 
 .flex-datebox {
   display: flex;
-  width: 100%;
-  max-width: 300px;
   text-align: center;
   justify-content: center;
   margin: 5px auto;
 }
 
-
-/*flex: ［flex-growの値］ ［flex-shrinkの値］ ［flex-basisの値］;*/
+/* flex: [flex-grow] [flex-shrink] [flex-basis]; */
 .flex-item1 {
   flex: 1 1 auto;
 }
 
 .flex-item2 {
   width: clamp(70px, 20vw, 90px); /* 画面幅に応じて70〜90pxの範囲で可変 */
-  aspect-ratio: 1/1;
-  padding: 10px 10px;
+  aspect-ratio: 1 / 1;
+  padding: 10px;
   margin: 20px 0;
   color: #000000;
   background: #e4fcff;
@@ -135,89 +121,72 @@ main {
 
 form {
   display: block;
-  width: 100%;
-  max-width: 300px;
-  margin-top: 0em;
+  margin-top: 0;
   unicode-bidi: isolate;
 }
 
 select {
   word-wrap: normal;
-  width: 100%;
-  max-width: 300px;
   margin-top: 5px;
   margin-bottom: 5px;
   text-align: center;
   font-size: 16px;
-  border: solid 1px #8f8f8f;     /* 枠線指定 */
-  border-radius: 5px;        /* 角丸指定 */
+  border: solid 1px #8f8f8f;
+  border-radius: 5px;
 }
 
-#registration {
+/* ========================================
+   ボタン
+======================================== */
+#registration,
+#cancel,
+.send {
   text-align: center;
   font-size: 16px;
   display: inline-block;
   padding: 5px 10px;
   width: 50%;
   text-decoration: none;
-  background: #33d61d;/*ボタン色*/
   color: #FFF;
+  border-radius: 3px;
+}
+
+#registration {
+  background: #33d61d;
   border: #33d61d;
   border-bottom: solid 4px #17aa3c;
-  border-radius: 3px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 #cancel {
-  text-align: center;
-  font-size: 16px;
-  display: inline-block;
-  padding: 5px 10px;
-  width: 50%;
-  text-decoration: none;
-  background: #d61d1d;/*ボタン色*/
-  color: #FFF;
+  background: #d61d1d;
   border: #d61d1d;
   border-bottom: solid 4px #aa1717;
-  border-radius: 3px;
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
-/* スマホの小さめ画面(iPhone SEなど 375px以下)向け調整 */
-@media screen and (max-width: 375px) {
-  main h3 {
-    font-size: 4vh;
-    width: 70%;
-  }
-
-  .flex-item2 {
-    width: 80px;
-  }
+.send {
+  background: #33d61d;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-body{
-  background-color:#9bbcf3;
-  justify-content: center;
-}
-
-h1 {
-    font-family: cursive;
-    width: 75%;
-    font-size: 8vh;
-    margin-top: 15vh;
-    margin-bottom: 5vh;
-    margin-left: 15vw;
-    margin-right: 10vw;
-    text-align: center;
-}
-
+/* ========================================
+   フッターメニュー
+======================================== */
 .footermenu {
   position: fixed;
   bottom: 0;
+  /* ★ left:50% + translateX をやめ、left/right + margin:auto で中央寄せ */
   left: 0;
+  right: 0;
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
   background-color: #9bbcf3;
@@ -246,50 +215,68 @@ h1 {
   margin-bottom: 5px;
 }
 
-@media screen and (min-width: 992px) {
-  .footermenu {
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 12px 12px 0 0;
-  }
-}
-
-a {
-    color: #000000;
-}
-
-a.return {
-    text-align: center;
-}
-
-
-.send {
-  text-align: center;
-  font-size: 16px;
-  display: inline-block;
-  padding: 5px 10px;
-  width: 50%;
-  text-decoration: none;
-  background: #33d61d;/*ボタン色*/
-  color: #FFF;
-  border: #33d61d;
-  border-bottom: solid 4px #17aa3c;
-  border-radius: 3px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
+/* ========================================
+   モーダル
+======================================== */
 #DatePickerModal .modal-content {
   flex-direction: column;
 }
+
 #DatePickerModal .modal-header {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
+
 #DatePickerModal .modal-header .btn-close {
   position: absolute;
   right: 10px;
+}
+
+/* ========================================
+   レスポンシブ
+======================================== */
+
+/* スマホの小さめ画面(iPhone SEなど 375px以下) */
+@media screen and (max-width: 375px) {
+  main h3 {
+    font-size: 4vh;
+    width: 70%;
+  }
+
+  .flex-item2 {
+    width: 80px;
+  }
+}
+
+/* タブレット以上(768px〜) */
+@media screen and (min-width: 768px) {
+  .flex-box,
+  .flex-box1,
+  .flex-datebox,
+  form,
+  select {
+    max-width: 400px;
+  }
+}
+
+/* PC(992px〜) */
+@media screen and (min-width: 992px) {
+  main h3 {
+    font-size: 40px;
+    width: auto;
+  }
+
+  .flex-box,
+  .flex-box1,
+  .flex-datebox,
+  form,
+  select {
+    max-width: 480px;
+  }
+
+  .footermenu {
+    border-radius: 12px 12px 0 0;
+  }
 }
