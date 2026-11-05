@@ -7,7 +7,7 @@
 <div class="flex-box">
     <h4>詳細画面</h4>
 </div>
-<div class="form-card2">
+<div class="form-card3">
     <div class="flex-box1">
         <div class="record_detail">
             <p><strong>公演日</strong>:{{ record.live_date|date:"Y年n月j日" }}</p>
@@ -20,15 +20,15 @@
             <p><strong>会場名</strong>:{{ record.venue_id.name }}</p>
         </div>
     </div>
-</div>
+
     
 
-<div class="flex-box">
-    <button type="submit" class="edit" ><a href="{% url 'records:record_update' record.pk %}">編集</a></button><p>
-</div>
+    <div class="flex-box">
+        <button type="submit" class="edit" ><a href="{% url 'records:record_update' record.pk %}">編集</a></button><p>
+    </div>
 
-<div class="flex-box">
-    <button type="submit" class="return" ><a href="{% url 'records:record_list'%}">一覧に戻る</a></button><p>
+    <div class="flex-box">
+        <button type="submit" class="return" ><a href="{% url 'records:record_list'%}">一覧に戻る</a></button><p>
+    </div>
 </div>
-
 {% endblock %}
