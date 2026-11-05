@@ -38,21 +38,24 @@
                                 {{ hidden }}
                             {% endfor %}
                         </div>
-                        {# --- ここが「＋追加」を押した時にコピーされる「ひな形」 --- #}
-                        <div class="empty-form" id="empty-form" style="display:none;">
-                            <div class="artist-item">
-                                {{ artist_formset.empty_form.artist_name }}
-                                <div style="display:none;">
-                                    {{ artist_formset.empty_form.DELETE }}
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 {% endfor %}
             </div>
+            {# --- ここが「＋追加」を押した時にコピーされる「ひな形」 --- #}
+            <div class="empty-form" id="empty-form" style="display:none;">
+                <div class="artist-item">
+                    {{ artist_formset.empty_form.artist_name }}
+                    <div style="display:none;">
+                        {{ artist_formset.empty_form.DELETE }}
+                    </div>
+                </div>
+            </div>
+
+
             <div class= btn-fix2>
                 <button type="button" id="add-btn" class="circle-btn3">＋</button>
-                <button type="button" id="remove-btn" class="circle-btn4">ー</button> 
+                <!--<button type="button" id="remove-btn" class="circle-btn4">ー</button>--> 
             </div>
         </div>
 
@@ -68,16 +71,23 @@
 
         <div class="edit-form">
             <label for="edit-img" class="edit-img">画像</label>
+            {% if record.live_image %}
+                <img src="{{ record.live_image.url }}" alt="ライブ画像" class="live-image-preview">
+            {% endif %}
+            <div class="image-change">
+                <label>変更:</label>
                 {{ form.live_image }}
+            </div>
+        </div>
+
+        <div class="flex-box">
+            <a href="{% url 'records:record_delete' record.id %}" class="button-style" id="delete">削除</a>
+        </div>
+        <div class="flex-box">
+            <button type="submit" id="edit" class="button-style">更新</button>
         </div>
     </form>
 
-        <div class="flex-box">
-            <button type="submit" id="delete"><a href="{% url 'records:record_delete' record.id %}" class="button-style" role="button">削除</a></button>
-        </div>
-        <div class="flex-box">
-            <button type="submit" id="edit"><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">更新</a></button>
-        </div>
 </div>
 
 
@@ -126,7 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const deleteCheckbox = lastItem.querySelector('input[name$="-DELETE"]');
 
                 // 既存データ（最初からあったもの）かどうか判定
-                if (deleteCheckbox && lastItem.querySelector('input[name*="initial"]')) {
+                const idInput = lastItem.querySelector('input[name$="-id"]');
+                if (deleteCheckbox && idInput && idInput.value) {
                     deleteCheckbox.checked = true;
                     lastItem.style.display = 'none';
                 } else {
