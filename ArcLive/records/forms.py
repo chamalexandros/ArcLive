@@ -64,6 +64,7 @@ class RecordForm(ModelForm):
                 'placeholder': '日付を選択',
                 'autocomplete': 'off',
             }),
+            'live_image': forms.FileInput(), 
         }
     
     def __init__(self, *args, **kwargs):
@@ -92,6 +93,7 @@ class VenueForm(ModelForm):
 class Artist_RecordForm(forms.ModelForm):
     artist_name = forms.CharField(
         label="アーティスト名",
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
@@ -108,8 +110,8 @@ class Artist_RecordForm(forms.ModelForm):
 #Record(親) と Artist_Record(子) の紐付け用フォームセット
 ArtistFormSet = inlineformset_factory(
     Record, Artist_Record,
-    form=Artist_RecordForm, # 自作フォームを適用
-    extra=1,               # 既存データのみ表示
+    form=Artist_RecordForm,
+    extra=1,               
     can_delete=True
 )
 
