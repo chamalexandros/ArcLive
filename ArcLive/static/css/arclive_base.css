@@ -53,46 +53,34 @@ main > * {
 /* ==========================================================================
    3. 見出し
    ========================================================================== */
+
+
+h1 {
+  font-family: cursive;
+  width: 75%;
+  font-size: 8vh;
+  margin-top: 15vh;
+  margin-bottom: 5vh;
+  margin-left: 15vw;
+  margin-right: 10vw;
+  text-align: center;
+}
+
 main h3 {
   font-family: cursive;
   width: 50%;
   font-size: clamp(24px, 5vw, 40px);
   margin-top: 1vh;
-  text-align: center;
-}
-
-@media screen and (min-width: 992px) {
-  main h3 {
-    font-size: 40px;
-    width: auto;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  main h3 {
-    font-size: clamp(20px, 4vh, 32px);
-    width: 70%;
-  }
-}
-
-/* ログイン画面などのロゴ見出し */
-h1 {
-  font-family: cursive;
-  font-size: clamp(32px, 8vh, 64px);
-  margin-top: 15vh;
-  margin-bottom: 5vh;
-  text-align: center;
 }
 
 h4 {
-  font-size: clamp(18px, 3vh, 28px);
+  font-size: 3vh;
   margin-top: 3vh;
 }
 
 h5 {
-  font-size: clamp(16px, 3vh, 24px);
+  font-size: 2.5vh;
 }
-
 /* ==========================================================================
    4. リンク
    ========================================================================== */
