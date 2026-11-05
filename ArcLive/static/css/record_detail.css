@@ -12,9 +12,16 @@
     font-size: 14px;
 }
 
+strong {
+    margin-left: 30px;
+}
+
 
 img {
-    width: 290px;
+    width: 200px;
+    height: 100px;
+    margin-left: 50px;
+
 }
 
 .edit {
