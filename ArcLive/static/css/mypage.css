@@ -69,3 +69,13 @@ input[type="password" i] {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.form-card5 {
+  background-color: #fff;        /* 白の塗りつぶし */
+  padding: 10px 14px;            /* 枠の内側の余白 */
+  border-radius: 12px;           /* 角を丸く(不要なら削除) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 影(任意) */
+  margin: 12px auto;             /* 中央寄せ */
+  text-align: center;
+  width: 300px;
+}
