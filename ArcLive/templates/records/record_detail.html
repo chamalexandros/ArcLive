@@ -18,6 +18,12 @@
             </p>
             <p><strong>公演名</strong>:{{ record.event_name }}</p>
             <p><strong>会場名</strong>:{{ record.venue_id.name }}</p>
+            <p><strong>画像</strong></p>
+            {% if record.live_image %}
+                <img src="{{ record.live_image.url }}" alt="ライブ画像" style="max-width:100%;">
+            {% else %}
+                <p></p>
+            {% endif %}
         </div>
     </div>
 
