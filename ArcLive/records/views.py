@@ -266,79 +266,61 @@ class RecordUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['venue_form'] = VenueForm(initial={'name':self.object.venue_id.name})
-        context['artist_formset'] = ArtistFormSet(instance=self.object)
+        context['venue_form'] = VenueForm(initial={'name': self.object.venue_id.name})
+        if self.request.method == 'POST':
+            context['artist_formset'] = ArtistFormSet(self.request.POST, instance=self.object)
+        else:
+            context['artist_formset'] = ArtistFormSet(instance=self.object)
         return context
+
     def form_valid(self, form):
-        # 1. 会場とアーティストのデータを取得
-        v_form = VenueForm(self.request.POST, instance=self.object.venue)
+        venue_form = VenueForm(self.request.POST)
         a_formset = ArtistFormSet(self.request.POST, instance=self.object)
 
-        # 2. 全部正しければ保存（これで「全部反映」されます）
-        if v_form.is_valid() and a_formset.is_valid():
-            v_form.save()
-            a_formset.save()
-            return super().form_valid(form) # 最後に Record 本体を保存
-        return self.render_to_response(self.get_context_data(form=form))
+        if not (venue_form.is_valid() and a_formset.is_valid()):
+            return self.form_invalid(form)
 
-    def form_valid(self, form):
-        # 1. 会場名の処理（自由入力された名前から会場データを特定・作成）
-        # テンプレートの会場名入力欄の 'name' 属性に合わせて取得
-        v_name = self.request.POST.get('venue_name') 
-        if v_name:
-            # 名前で検索して取得、なければ新規作成
-            venue, created = Venue.objects.get_or_create(name=v_name)
-            # 親の Record インスタンスに会場をセット
-            form.instance.venue_id = venue 
+        # 1. 会場
+        venue, _ = Venue.objects.get_or_create(name=venue_form.cleaned_data['name'])
+        form.instance.venue_id = venue
 
-        # 2. 親（Record：公演日、公演名、画像）の保存
-        # ここで live_date, event_name, live_image などが保存されます
+        # 2. Record本体
         response = super().form_valid(form)
-        
-        # 3. アーティストの処理（FormSet）
-        a_formset = ArtistFormSet(self.request.POST, instance=self.object)
-    
-        if a_formset.is_valid():
-            # 削除チェックが入ったものを先に消す
-            for obj in a_formset.deleted_objects:
-                obj.delete()
 
-            # 各アーティストフォームの処理
-            instances = a_formset.save(commit=False)
-            for a_form in a_formset:
-                # 削除フラグが立っていないものだけ処理
-                if not a_form.cleaned_data.get('DELETE'):
-                    name = a_form.cleaned_data.get('artist_name')
-                    if name:
-                        # アーティスト名で検索 or 作成
-                        artist, created = Artist.objects.get_or_create(name=name)
-                        # 中間テーブル（Artist_Record）に紐付け
-                        a_form.instance.artist_id = artist
-                        a_form.instance.record_id = self.object
-                        a_form.instance.save()
+        # 3. アーティスト
+        for a_form in a_formset:
+            name = (a_form.cleaned_data.get('artist_name') or '').strip()
+            instance = a_form.instance
+
+            # 削除チェックあり、または空欄 → 既存行なら削除
+            if a_form.cleaned_data.get('DELETE') or not name:
+                if instance.pk:
+                    instance.delete()
+                continue
+
+            artist, _ = Artist.objects.get_or_create(name=name)
+
+            if instance.pk:
+                # 既存行 → アーティストを差し替え
+                instance.artist_id = artist
+                instance.save()
+            else:
+                # 新規行 → 紐付けを作成
+                Artist_Record.objects.get_or_create(
+                    record_id=self.object,
+                    artist_id=artist,
+                )
 
         return response
 
+        
+
+    def form_invalid(self, form):
+        
+        return super().form_invalid(form)
 
     def get_success_url(self):
-        # 4. 更新完了後、どのページに飛ばすか。pkが必要な場合はここで指定
-        # 例：詳細画面に戻る場合
         return reverse_lazy('records:record_detail', kwargs={'pk': self.object.pk})
-        # 例：もし一覧画面のURLにpkが含まれる設計なら、前のコードの通り self.kwargs['pk'] を使います
-
-    # URLが動的に変化するページに遷移する場合に用いる
-    def get_success_url(self):
-        return reverse_lazy('records:record_list', kwargs={'pk': self.kwargs['pk']})
-    
-    # 処理が成功した時に実行される
-        def form_valid(self, form):
-            messages.success(self.request, '参戦記録を更新しました')
-            return super().form_valid(form)
-    
-    # 処理が失敗した時に実行される
-        def form_invalid(self, form):
-            messages.error(self.request, '参戦記録の更新に失敗しました')
-            return super().form_invalid(form)
     
     
 
