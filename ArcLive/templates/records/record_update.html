@@ -2,12 +2,14 @@
 {% load static %}
 {% block extra_css %}
     <link rel="stylesheet" href="/static/css/record_update.css">
+    {# ★追加: ホイールピッカー用CSS #}
+    <link rel="stylesheet" href="{% static 'css/wheel_picker.css' %}">
 {% endblock %}
 {% block main %}
 <div class="flex-box">
 <h4>編集画面</h4>
 </div>
-
+<div class="form-card2">
     <form method="POST" class="edit-form" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -48,8 +50,10 @@
                     </div>
                 {% endfor %}
             </div>
-            <button type="button" id="add-btn" class="add-btn">＋</button>
-            <button type="button" id="remove-btn" class="remove-btn">ー</button>
+            <div class= btn-fix2>
+                <button type="button" id="add-btn" class="circle-btn3">＋</button>
+                <button type="button" id="remove-btn" class="circle-btn4">ー</button> 
+            </div>
         </div>
 
         <div class="edit-form">
@@ -74,6 +78,17 @@
         <div class="flex-box">
             <button type="submit" id="edit"><a href="{% url 'records:record_update' record.id %}" class="button-style" role="button">更新</a></button>
         </div>
+</div>
+
+
+{# ★追加: 日付ピッカーのモーダル(formの外に置く) #}
+{% include "records/wheel_picker_modal.html" %}
+
+{# ★追加: モーダルHTMLより後に読み込む #}
+<script src="{% static 'js/wheel_picker.js' %}"></script>
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('add-btn');
