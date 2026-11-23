@@ -10,3 +10,7 @@ a.return {
     text-align: center;
     font-size: 14px;
 }
+
+.done {
+    width: 300px;
+}
