@@ -1,0 +1,43 @@
+.email {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.email input[type="email"] {
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+#change-email {
+  display: block;
+  margin: 0 auto;
+}
+
+
+button#change-email {
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px 10px;
+  width: 50%;
+  text-decoration: none;
+  background: #33d61d;
+  color: #fff;
+  border: #33d61d;
+  border-bottom: solid 4px #17aa3c;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+    width:240px;
+    font-weight: bold;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
