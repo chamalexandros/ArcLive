@@ -1,9 +1,61 @@
-.ps_reset_confirm {
-    font-size: 14px;
-    margin: 3px 30px;
+.confirm-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* 中の要素を横方向の中央に */
+    align-self: center;      /* body(flex)の中で箱自体を中央に */
+    width: 300px;
 }
 
-input {
-    width:250px;
-    margin-bottom: 5px;
+form.confirm-form {
+    width: 100%;             /* confirm-flex の幅に合わせる */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form.confirm-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form.confirm-form input {
+    display: block;
+    width: 80%;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+
+form.confirm-form .help-text {
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+form.confirm-form .help-text ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+form.confirm-form .flex-box {
+    max-width: 80%;
+}
+
+form.confirm-form .flex-box {
+    max-width: 100%;
+}
+
+form.confirm-form button.send {
+    width: 60%;
+}
+
+.ps_reset_confirm {
+    width:240px;
+    text-align: left;
+    margin-left: 35px;
 }
