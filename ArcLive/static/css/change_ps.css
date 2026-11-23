@@ -1,9 +1,19 @@
+.ps_1 {
+    width: 300px;
+}
+
+.helptext {
+  display: block;      /* 改行して入力欄の下に表示 */
+  margin-top: 5px;     /* 入力欄との間隔 */
+  font-size: x-small;
+  text-align: center;
+}
 .change {
   text-align: center;
   font-size: 16px;
   display: inline-block;
   padding: 5px 10px;
-  width: 50%;
+  width: 120px;
   text-decoration: none;
   background: #33d61d;/*ボタン色*/
   color: #FFF;
