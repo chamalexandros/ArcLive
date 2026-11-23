@@ -31,8 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # 127.0.0.1:8000/admin/
     path('', include('django.contrib.auth.urls')),
     path('records/', include('records.urls')),
-    path('portfolio/', TemplateView.as_view(template_name='portfolio/portfolio.html', name='portfolio'))
-    
+    path("portfolio/", TemplateView.as_view(template_name="portfolio/portfolio.html"), name="portfolio"),
 ] 
 
 if settings.DEBUG:
