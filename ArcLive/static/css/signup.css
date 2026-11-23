@@ -1,23 +1,39 @@
+.signup-form {
+    display: block;
+    width: 240px;
+    margin: 5px auto 0;
+    text-align: left;
+    border-radius: 10px;
+}
 
 .signup {
     font-size: 14px;
     text-align: left;
-    margin-left: 25px;
 }
-
-
 
 .signup input#id_email {
     margin-left: 18px;
-} 
+}
 
 .signup ul {
     font-size: 10px;
     display: block;
     text-align: left;
+    padding-left: 20px;
 }
 
-#id_password2_helptext{
+/* パスワード確認用の入力欄を1段下に落として全体の幅に揃える */
+.signup input#id_password2 {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+
+/* 「確認のため〜」を入力欄のさらに下に表示 */
+#id_password2_helptext {
+    display: block;
     font-size: 12px;
-    text-align: right;
+    text-align: left;
+    margin-top: 6px;
 }
