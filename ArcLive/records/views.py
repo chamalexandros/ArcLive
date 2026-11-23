@@ -33,6 +33,8 @@ class HomeView(LoginRequiredMixin, View):
         # --- ②の処理(期間検索) ---
         date_min = self.request.GET.get('start_date')
         date_max = self.request.GET.get('end_date')
+        
+        base_qs = Record.objects.filter(user_id=request.user)
 
         if date_min and date_max:
             record_list = Record.objects.filter(live_date__range=[date_min, date_max]).order_by('live_date')
@@ -177,13 +179,14 @@ class RecordListView(LoginRequiredMixin, View):
     model = Record
     context_object_name = 'record_list' 
     
+    
     #指定期間による検索
     def get(self, request, *args, **kwargs):
         date_min = self.request.GET.get('start-date1')
         date_max = self.request.GET.get('end-date1')
         keyword = request.GET.get('keyword', '').strip()
 
-        record_list = Record.objects.all()
+        record_list = Record.objects.filter(user_id=request.user)
 
         if date_min:
             record_list = record_list.filter(live_date__gte=date_min)
@@ -250,6 +253,9 @@ class RecordListView(LoginRequiredMixin, View):
 class RecordDetailView(LoginRequiredMixin, generic.DetailView):
     model = Record
     template_name = 'records/record_detail.html'
+    
+    def get_queryset(self):
+        return Record.objects.filter(user_id=self.request.user)
     
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -322,14 +328,18 @@ class RecordUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse_lazy('records:record_detail', kwargs={'pk': self.object.pk})
     
+    def get_queryset(self):
+        return Record.objects.filter(user_id=self.request.user)
+    
     
 
 class RecordDeleteView(LoginRequiredMixin, generic.View):
     
     def get(self, request, pk):
-        record = get_object_or_404(Record, id=pk)
+        record = get_object_or_404(Record, id=pk, user_id=request.user)
         record.delete()
         return redirect("records:record_list")
+    
         
 
 home =HomeView.as_view()
