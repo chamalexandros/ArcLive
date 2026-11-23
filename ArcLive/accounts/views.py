@@ -28,7 +28,11 @@ class MyChangeEmailView(LoginRequiredMixin, View):
         return render(request, 'accounts/change_email.html', {"user": request.user})
     
     def post(self,request):
-        new_email = request.POST.get('email')
+        new_email = request.POST.get('new_email')
+        if not new_email:
+            messages.error(request, 'メールアドレスを入力してください')
+            return redirect('accounts:change_email')
+    
         request.user.email = new_email
         request.user.save()
         
@@ -67,6 +71,7 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 class PasswordResetComplete(PasswordResetCompleteView):
     """新パスワード設定しましたページ"""
     template_name = 'registration/password_reset_complete.html'
+    
    
     
 
