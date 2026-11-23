@@ -1,13 +1,35 @@
 h4 {
     text-align: center;
+    font-size: 16px;
 }
 
 h6 {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 20px;
 }
 
 
 .ps_reset_form input#id_email.form-control {
-    width:280px
+    width:240px
+}
+
+.reset-form {
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+    width:300px;
+}
+
+.reset-form h6 {
+    font-size: 13px;
+    margin: 4px 0;
+    word-break: break-all;   /* 長い文を箱の中で折り返す */
+}
+
+.reset-form input[type="email"],
+.reset-form input#id_email {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
 }
