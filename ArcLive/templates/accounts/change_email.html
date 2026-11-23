@@ -1,16 +1,22 @@
 {% extends "base/base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/change_email.css">
+{% endblock %}
 {% block main %}
-<div style="text-align: center";>
-    <h4>メールアドレス変更<h4>
+<div class="email">
+    <h4>メールアドレス変更</h4>
     <form method="post">
         {% csrf_token %}
-        <p>現在のメールアドレス: {{user.email }}</p>
+        <p>現在のメールアドレス: </p>
+        <p>{{user.email }}</p>
+        <br>
         <label>新しいメールアドレス</label>
         <br>
-        <input type="email" name="new_email" value="{{ user.email }}"required>
+        <input type="email" name="new_email" value="{{ user.email }}" required>
         <br>
         <br>
-        <button type="submit">変更</button>
+        <button type="submit" id="change-email">変更</button>
     </form>
 
 </div>
