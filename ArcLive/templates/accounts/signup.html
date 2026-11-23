@@ -5,9 +5,9 @@
 {% endblock %}
 {% block body %}
 <div class="flex-box">
-    <h4>新規アカウント登録<h4>
+    <h4>新規アカウント登録</h4>
 
-    <form method="post" style="display: inline-block; text-align: left;  margin-top:5px; padding 30px; border-radius: 10px">
+    <form method="post" class="signup-form">
         {% csrf_token %}
         <div class="signup">
             {{ form.as_p }}
